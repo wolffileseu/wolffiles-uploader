@@ -1,0 +1,230 @@
+<Page
+    x:Class="WolffilesUploader.Views.UploadQueuePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:WolffilesUploader.Models"
+    Background="{StaticResource BgSurfaceBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Topbar -->
+        <Border Grid.Row="0"
+                BorderBrush="{StaticResource BgElevatedBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="20,12">
+            <Grid>
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <TextBlock Text="Upload Queue"
+                               FontSize="16" FontWeight="SemiBold"
+                               Foreground="{StaticResource TextPrimaryBrush}" />
+                    <Border Background="{StaticResource BgElevatedBrush}"
+                            CornerRadius="10" Padding="6,2">
+                        <TextBlock x:Name="CountBadge"
+                                   FontSize="11" FontFamily="Consolas"
+                                   Foreground="{StaticResource TextSecondaryBrush}" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="8"
+                            HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Content="✕ Fertige löschen"
+                            Command="{x:Bind ViewModel.ClearQueueCommand}" />
+                    <Button Command="{x:Bind ViewModel.UploadAllCommand}"
+                            Style="{StaticResource AccentButtonStyle}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Text="⬆" />
+                            <TextBlock Text="Alle hochladen" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <ScrollViewer Grid.Row="1" Padding="20">
+            <StackPanel Spacing="16">
+
+                <!-- Drop Zone -->
+                <Border BorderBrush="{StaticResource AccentGoldBrush}"
+                        BorderThickness="1.5" CornerRadius="8"
+                        Padding="32,28" Background="#0A0A0F"
+                        AllowDrop="True"
+                        DragOver="DropZone_DragOver"
+                        Drop="DropZone_Drop">
+                    <StackPanel HorizontalAlignment="Center" Spacing="6">
+                        <TextBlock Text="📦" FontSize="30" HorizontalAlignment="Center" Opacity="0.5" />
+                        <TextBlock Text="Dateien hierher ziehen oder klicken"
+                                   FontSize="14" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="Mehrere Dateien auf einmal möglich"
+                                   FontSize="11" FontFamily="Consolas"
+                                   Foreground="#424860" HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal" Spacing="6"
+                                    HorizontalAlignment="Center" Margin="0,6,0,0">
+                            <Border Background="#1A1800" BorderBrush="#3D3200"
+                                    BorderThickness="1" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text=".pk3" FontSize="10" FontFamily="Consolas"
+                                           Foreground="{StaticResource AccentGoldBrush}" />
+                            </Border>
+                            <Border Background="#1A1800" BorderBrush="#3D3200"
+                                    BorderThickness="1" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text=".zip" FontSize="10" FontFamily="Consolas"
+                                           Foreground="{StaticResource AccentGoldBrush}" />
+                            </Border>
+                            <Border Background="#1A1800" BorderBrush="#3D3200"
+                                    BorderThickness="1" CornerRadius="3" Padding="6,2">
+                                <TextBlock Text=".rar" FontSize="10" FontFamily="Consolas"
+                                           Foreground="{StaticResource AccentGoldBrush}" />
+                            </Border>
+                        </StackPanel>
+                        <Button Content="Dateien auswählen"
+                                HorizontalAlignment="Center"
+                                Margin="0,8,0,0"
+                                Click="BrowseFiles_Click" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Queue as ListView (SelectionMode None = kein highlight) -->
+                <ListView ItemsSource="{x:Bind ViewModel.Queue, Mode=OneWay}"
+                          SelectionMode="None"
+                          IsItemClickEnabled="False"
+                          HorizontalContentAlignment="Stretch">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Padding" Value="0" />
+                            <Setter Property="Margin" Value="0,0,0,8" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="Background" Value="Transparent" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:UploadItem">
+                            <Border Background="{StaticResource BgElevatedBrush}"
+                                    BorderBrush="#22263A" BorderThickness="1"
+                                    CornerRadius="7" Padding="14,12">
+                                <StackPanel Spacing="10">
+
+                                    <!-- Top row -->
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Grid.Column="0" Width="36" Height="36"
+                                                CornerRadius="5" Background="#1A2A3A"
+                                                Margin="0,0,10,0">
+                                            <TextBlock Text="{x:Bind FileExtension}"
+                                                       FontSize="10" FontFamily="Consolas" FontWeight="Bold"
+                                                       Foreground="#5299E0"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock Text="{x:Bind FileName}"
+                                                       FontSize="13" FontWeight="Medium"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"
+                                                       TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{x:Bind FileSizeDisplay}"
+                                                       FontSize="11" FontFamily="Consolas"
+                                                       Foreground="#424860" />
+                                        </StackPanel>
+
+                                        <ProgressRing Grid.Column="2"
+                                                      Width="20" Height="20"
+                                                      IsActive="True"
+                                                      Margin="0,0,8,0"
+                                                      Visibility="{x:Bind Status, Converter={StaticResource StatusToUploadingVisibilityConverter}, Mode=OneWay}" />
+
+                                        <Border Grid.Column="3" CornerRadius="3" Padding="8,3"
+                                                Background="#1A1A2A">
+                                            <TextBlock Text="{x:Bind Status, Converter={StaticResource StatusToStringConverter}, Mode=OneWay}"
+                                                       FontSize="10" FontFamily="Consolas"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{StaticResource AccentGoldBrush}" />
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Progress bar -->
+                                    <StackPanel Visibility="{x:Bind Status, Converter={StaticResource StatusToUploadingVisibilityConverter}, Mode=OneWay}"
+                                                Spacing="3">
+                                        <ProgressBar Value="{x:Bind Progress, Mode=OneWay}"
+                                                     Maximum="100" Height="3"
+                                                     Foreground="{StaticResource AccentGoldBrush}" />
+                                        <TextBlock Text="{x:Bind SpeedDisplay, Mode=OneWay}"
+                                                   FontSize="10" FontFamily="Consolas"
+                                                   Foreground="#424860" />
+                                    </StackPanel>
+
+                                    <!-- Error -->
+                                    <TextBlock Text="{x:Bind ErrorMessage, Mode=OneWay}"
+                                               FontSize="11" FontFamily="Consolas"
+                                               Foreground="{StaticResource StatusRedBrush}"
+                                               Visibility="{x:Bind ErrorMessage, Converter={StaticResource StringToVisibilityConverter}, Mode=OneWay}" />
+
+                                    <!-- Form -->
+                                    <Grid ColumnSpacing="8" RowSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Titel -->
+                                        <StackPanel Grid.Row="0" Grid.Column="0" Spacing="4">
+                                            <TextBlock Text="TITEL" FontSize="10" FontFamily="Consolas"
+                                                       Foreground="#424860" CharacterSpacing="80" />
+                                            <TextBox Text="{x:Bind Title, Mode=TwoWay}"
+                                                     PlaceholderText="Dateititel..." />
+                                        </StackPanel>
+
+                                        <!-- Kategorie -->
+                                        <StackPanel Grid.Row="0" Grid.Column="1" Spacing="4">
+                                            <TextBlock Text="KATEGORIE" FontSize="10" FontFamily="Consolas"
+                                                       Foreground="#424860" CharacterSpacing="80" />
+                                            <ComboBox HorizontalAlignment="Stretch"
+                                                      PlaceholderText="Wählen..."
+                                                      Loaded="CategoryCombo_Loaded"
+                                                      SelectionChanged="CategoryCombo_SelectionChanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate x:DataType="models:CategoryOption">
+                                                        <TextBlock Text="{x:Bind DisplayName}"
+                                                                   FontWeight="{x:Bind IsParent, Converter={StaticResource BoolToFontWeightConverter}}"
+                                                                   Foreground="{x:Bind IsParent, Converter={StaticResource BoolToForegroundConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+
+                                        <!-- Beschreibung -->
+                                        <StackPanel Grid.Row="1" Grid.Column="0"
+                                                    Grid.ColumnSpan="2" Spacing="4">
+                                            <TextBlock Text="BESCHREIBUNG" FontSize="10" FontFamily="Consolas"
+                                                       Foreground="#424860" CharacterSpacing="80" />
+                                            <TextBox Text="{x:Bind Description, Mode=TwoWay}"
+                                                     PlaceholderText="Kurze Beschreibung..."
+                                                     AcceptsReturn="True"
+                                                     TextWrapping="Wrap"
+                                                     MaxHeight="80" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

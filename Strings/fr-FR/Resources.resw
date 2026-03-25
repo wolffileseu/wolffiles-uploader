@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- Login -->
+  <data name="Login_Title" xml:space="preserve"><value>Se connecter</value></data>
+  <data name="Login_Email" xml:space="preserve"><value>Email / Nom d'utilisateur</value></data>
+  <data name="Login_Password" xml:space="preserve"><value>Mot de passe</value></data>
+  <data name="Login_RememberMe" xml:space="preserve"><value>Rester connecté</value></data>
+  <data name="Login_Button" xml:space="preserve"><value>SE CONNECTER</value></data>
+  <data name="Login_NoAccount" xml:space="preserve"><value>Pas encore de compte ?</value></data>
+  <data name="Login_Register" xml:space="preserve"><value>S'inscrire maintenant</value></data>
+
+  <!-- Register -->
+  <data name="Register_Title" xml:space="preserve"><value>Créer un compte</value></data>
+  <data name="Register_Username" xml:space="preserve"><value>Nom d'utilisateur</value></data>
+  <data name="Register_Email" xml:space="preserve"><value>Adresse e-mail</value></data>
+  <data name="Register_Password" xml:space="preserve"><value>Mot de passe</value></data>
+  <data name="Register_PasswordConfirm" xml:space="preserve"><value>Confirmer le mot de passe</value></data>
+  <data name="Register_Button" xml:space="preserve"><value>CRÉER UN COMPTE</value></data>
+  <data name="Register_HasAccount" xml:space="preserve"><value>Déjà un compte ?</value></data>
+  <data name="Register_Login" xml:space="preserve"><value>Se connecter</value></data>
+  <data name="Register_PasswordHint" xml:space="preserve"><value>Au moins 8 caractères</value></data>
+
+  <!-- Navigation -->
+  <data name="Nav_Queue" xml:space="preserve"><value>File d'upload</value></data>
+  <data name="Nav_History" xml:space="preserve"><value>Historique</value></data>
+  <data name="Nav_Settings" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="Nav_Logout" xml:space="preserve"><value>Se déconnecter</value></data>
+
+  <!-- Upload Queue -->
+  <data name="Queue_Title" xml:space="preserve"><value>File d'upload</value></data>
+  <data name="Queue_DropHint" xml:space="preserve"><value>Déposer des fichiers ici ou cliquer</value></data>
+  <data name="Queue_DropSub" xml:space="preserve"><value>Plusieurs fichiers simultanément</value></data>
+  <data name="Queue_Browse" xml:space="preserve"><value>Choisir des fichiers</value></data>
+  <data name="Queue_UploadAll" xml:space="preserve"><value>Tout envoyer</value></data>
+  <data name="Queue_ClearDone" xml:space="preserve"><value>Supprimer les terminés</value></data>
+  <data name="Queue_Cancel" xml:space="preserve"><value>Annuler</value></data>
+  <data name="Queue_Files" xml:space="preserve"><value>fichiers</value></data>
+
+  <!-- Form fields -->
+  <data name="Field_Title" xml:space="preserve"><value>TITRE</value></data>
+  <data name="Field_Category" xml:space="preserve"><value>CATÉGORIE</value></data>
+  <data name="Field_Description" xml:space="preserve"><value>DESCRIPTION</value></data>
+  <data name="Field_Version" xml:space="preserve"><value>VERSION</value></data>
+  <data name="Field_Author" xml:space="preserve"><value>AUTEUR</value></data>
+  <data name="Field_Screenshots" xml:space="preserve"><value>CAPTURES D'ÉCRAN</value></data>
+  <data name="Field_TitlePlaceholder" xml:space="preserve"><value>Titre du fichier...</value></data>
+  <data name="Field_CategoryPlaceholder" xml:space="preserve"><value>Sélectionner...</value></data>
+  <data name="Field_DescriptionPlaceholder" xml:space="preserve"><value>Courte description du fichier...</value></data>
+
+  <!-- Status -->
+  <data name="Status_Uploading" xml:space="preserve"><value>EN COURS</value></data>
+  <data name="Status_Done" xml:space="preserve"><value>TERMINÉ</value></data>
+  <data name="Status_Pending" xml:space="preserve"><value>EN ATTENTE</value></data>
+  <data name="Status_Error" xml:space="preserve"><value>ERREUR</value></data>
+  <data name="Status_Cancelled" xml:space="preserve"><value>ANNULÉ</value></data>
+
+  <!-- History -->
+  <data name="History_Title" xml:space="preserve"><value>Historique des uploads</value></data>
+  <data name="History_TotalUploads" xml:space="preserve"><value>Total uploads</value></data>
+  <data name="History_TotalSize" xml:space="preserve"><value>Envoyé</value></data>
+  <data name="History_Successful" xml:space="preserve"><value>Réussis</value></data>
+  <data name="History_Filename" xml:space="preserve"><value>Nom du fichier</value></data>
+  <data name="History_Category" xml:space="preserve"><value>Catégorie</value></data>
+  <data name="History_Size" xml:space="preserve"><value>Taille</value></data>
+  <data name="History_Date" xml:space="preserve"><value>Date</value></data>
+  <data name="History_ClearAll" xml:space="preserve"><value>Vider l'historique</value></data>
+  <data name="History_Export" xml:space="preserve"><value>Exporter</value></data>
+  <data name="History_Empty" xml:space="preserve"><value>Aucun upload pour l'instant</value></data>
+
+  <!-- Settings -->
+  <data name="Settings_Title" xml:space="preserve"><value>Paramètres</value></data>
+  <data name="Settings_Language" xml:space="preserve"><value>Langue</value></data>
+  <data name="Settings_Account" xml:space="preserve"><value>Compte</value></data>
+  <data name="Settings_Version" xml:space="preserve"><value>Version</value></data>
+  <data name="Settings_CheckUpdate" xml:space="preserve"><value>Vérifier les mises à jour</value></data>
+  <data name="Settings_UpdateAvailable" xml:space="preserve"><value>Mise à jour disponible</value></data>
+  <data name="Settings_UpToDate" xml:space="preserve"><value>Vous avez la dernière version</value></data>
+  <data name="Settings_Download" xml:space="preserve"><value>Télécharger</value></data>
+  <data name="Settings_OpenSite" xml:space="preserve"><value>Ouvrir wolffiles.eu</value></data>
+
+  <!-- Errors -->
+  <data name="Error_NoConnection" xml:space="preserve"><value>Connexion à wolffiles.eu impossible</value></data>
+  <data name="Error_LoginFailed" xml:space="preserve"><value>Échec de la connexion</value></data>
+  <data name="Error_UploadFailed" xml:space="preserve"><value>Échec de l'envoi</value></data>
+  <data name="Error_InvalidCredentials" xml:space="preserve"><value>Identifiants invalides</value></data>
+  <data name="Error_PasswordMismatch" xml:space="preserve"><value>Les mots de passe ne correspondent pas</value></data>
+  <data name="Error_EmailTaken" xml:space="preserve"><value>Adresse e-mail déjà utilisée</value></data>
+  <data name="Error_UsernameTaken" xml:space="preserve"><value>Nom d'utilisateur déjà pris</value></data>
+
+  <!-- Update banner -->
+  <data name="Update_Available" xml:space="preserve"><value>🆕 Mise à jour disponible : v{0}</value></data>
+  <data name="Update_DownloadNow" xml:space="preserve"><value>Télécharger maintenant</value></data>
+  <data name="Update_Later" xml:space="preserve"><value>Plus tard</value></data>
+</root>
