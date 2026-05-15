@@ -1,9 +1,10 @@
-name: Release MSIX
+name: Release
 
 on:
   push:
     tags:
-      - 'v*.*.*'   # triggers on: git tag v1.2.3 && git push --tags
+      - 'v*.*.*'   # production release on tag push (git tag v1.2.3 && git push --tags)
+  workflow_dispatch: # manual trigger for testing (no release, just artifacts)
 
 jobs:
   build-and-release:
@@ -20,92 +21,140 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install Windows App SDK workload
-        run: dotnet workload install windows
+      # No 'dotnet workload install windows' — that workload does not exist for .NET 8 / WinUI 3.
+      # Windows App SDK comes as the Microsoft.WindowsAppSDK NuGet package via the csproj reference.
+      - name: Restore workloads (defensive, no-op if none declared)
+        run: dotnet workload restore
 
       - name: Extract version from tag
         id: version
         shell: bash
-        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+            echo "IS_RELEASE=true" >> $GITHUB_OUTPUT
+          else
+            # manual run — use short SHA as version suffix
+            SHORT_SHA=$(echo "$GITHUB_SHA" | cut -c1-7)
+            echo "VERSION=0.0.0-dev-$SHORT_SHA" >> $GITHUB_OUTPUT
+            echo "IS_RELEASE=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Update version in csproj
         shell: pwsh
         run: |
           $version = "${{ steps.version.outputs.VERSION }}"
-          $csproj = Get-Content "WolffilesUploader.csproj" -Raw
-          $csproj = $csproj -replace '<Version>.*?</Version>', "<Version>$version</Version>"
-          $csproj | Set-Content "WolffilesUploader.csproj"
+          # strip pre-release suffix for csproj <Version> (MSBuild dislikes it)
+          $assemblyVersion = ($version -split '-')[0]
+          $path = "WolffilesUploader.csproj"
+          $csproj = Get-Content $path -Raw
 
-      - name: Build MSIX (x64)
-        run: |
-          dotnet publish WolffilesUploader.csproj `
-            -c Release `
-            -r win-x64 `
-            -p:PublishSingleFile=false `
-            -p:WindowsPackageType=MSIX `
-            -o publish/x64
+          if ($csproj -match '<Version>.*?</Version>') {
+            $csproj = $csproj -replace '<Version>.*?</Version>', "<Version>$assemblyVersion</Version>"
+          } else {
+            # inject before </PropertyGroup> if missing
+            $csproj = $csproj -replace '</PropertyGroup>', "  <Version>$assemblyVersion</Version>`r`n  </PropertyGroup>", 1
+          }
+          $csproj | Set-Content $path -NoNewline
+          Write-Host "Set version to $assemblyVersion (full: $version)"
+
+      - name: Restore
+        run: dotnet restore WolffilesUploader.csproj -p:Platform=x64
 
       - name: Build portable ZIP (x64)
         run: |
           dotnet publish WolffilesUploader.csproj `
             -c Release `
             -r win-x64 `
+            -p:Platform=x64 `
             -p:PublishSingleFile=true `
             -p:SelfContained=true `
             -p:WindowsPackageType=None `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
             -o publish/portable
 
       - name: Package portable ZIP
         shell: pwsh
         run: |
           $version = "${{ steps.version.outputs.VERSION }}"
+          $zipName = "WolffilesUploader-$version-portable-x64.zip"
           Compress-Archive -Path "publish/portable/*" `
-            -DestinationPath "publish/WolffilesUploader-$version-portable-x64.zip"
+            -DestinationPath "publish/$zipName"
+          Write-Host "Created $zipName"
+          Get-Item "publish/$zipName" | Select-Object Name, @{n='SizeMB';e={[math]::Round($_.Length/1MB,1)}}
 
-      - name: Generate .appinstaller
-        shell: pwsh
-        run: |
-          $version = "${{ steps.version.outputs.VERSION }}"
-          $content = @"
-          <?xml version="1.0" encoding="utf-8"?>
-          <AppInstaller
-              xmlns="http://schemas.microsoft.com/appx/appinstaller/2018"
-              Uri="https://wolffiles.eu/downloads/wolffiles-uploader.appinstaller"
-              Version="$version.0">
-            <MainPackage
-              Name="WolffilesUploader"
-              Version="$version.0"
-              Publisher="CN=Wolffiles"
-              ProcessorArchitecture="x64"
-              Uri="https://wolffiles.eu/downloads/WolffilesUploader-$version-x64.msix" />
-            <UpdateSettings>
-              <OnLaunch HoursBetweenUpdateChecks="24" ShowPrompt="true" />
-            </UpdateSettings>
-          </AppInstaller>
-          "@
-          $content | Set-Content "publish/wolffiles-uploader.appinstaller"
+      # ──────────────────────────────────────────────────────────────────
+      # MSIX + .appinstaller pipeline disabled until Phase F:
+      #   1. Add <EnableMsixTooling>true</EnableMsixTooling> to csproj
+      #   2. Create Package.appxmanifest with publisher CN=Wolffiles
+      #   3. Add code-signing cert as GitHub secret (CERT_BASE64, CERT_PASSWORD)
+      #   4. Re-enable the two steps below
+      # ──────────────────────────────────────────────────────────────────
+      # - name: Build MSIX (x64)
+      #   run: |
+      #     dotnet publish WolffilesUploader.csproj `
+      #       -c Release `
+      #       -r win-x64 `
+      #       -p:Platform=x64 `
+      #       -p:WindowsPackageType=MSIX `
+      #       -p:GenerateAppxPackageOnBuild=true `
+      #       -o publish/x64
+      #
+      # - name: Generate .appinstaller
+      #   shell: pwsh
+      #   run: |
+      #     $version = "${{ steps.version.outputs.VERSION }}"
+      #     $content = @"
+      #     <?xml version="1.0" encoding="utf-8"?>
+      #     <AppInstaller xmlns="http://schemas.microsoft.com/appx/appinstaller/2018"
+      #                   Uri="https://wolffiles.eu/downloads/wolffiles-uploader.appinstaller"
+      #                   Version="$version.0">
+      #       <MainPackage Name="WolffilesUploader" Version="$version.0"
+      #                    Publisher="CN=Wolffiles" ProcessorArchitecture="x64"
+      #                    Uri="https://wolffiles.eu/downloads/WolffilesUploader-$version-x64.msix" />
+      #       <UpdateSettings>
+      #         <OnLaunch HoursBetweenUpdateChecks="24" ShowPrompt="true" />
+      #       </UpdateSettings>
+      #     </AppInstaller>
+      #     "@
+      #     $content | Set-Content "publish/wolffiles-uploader.appinstaller"
 
+      # For manual runs (workflow_dispatch): upload as Actions artifact so we can grab the build to test
+      - name: Upload build artifact (manual runs)
+        if: steps.version.outputs.IS_RELEASE == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: WolffilesUploader-dev-${{ steps.version.outputs.VERSION }}
+          path: publish/*.zip
+          retention-days: 14
+
+      # ──────────────────────────────────────────────────────────────────
+      # Release steps only run on actual tag pushes
+      # ──────────────────────────────────────────────────────────────────
       - name: Create GitHub Release
+        if: steps.version.outputs.IS_RELEASE == 'true'
         uses: softprops/action-gh-release@v2
         with:
           name: "Wolffiles Uploader v${{ steps.version.outputs.VERSION }}"
           body: |
             ## 🐺 Wolffiles Uploader v${{ steps.version.outputs.VERSION }}
 
-            ### Installation
-            - **Windows Installer (.appinstaller):** [wolffiles.eu/downloads](https://wolffiles.eu/downloads)
-            - **Portable ZIP:** Direkt aus diesem Release herunterladen
+            ### Download
+            - **Portable ZIP (x64):** see assets below — extract anywhere, run `WolffilesUploader.exe`
 
-            ### Automatische Updates
-            Wenn du die `.appinstaller` Version verwendest, werden Updates automatisch erkannt.
+            ### Requirements
+            - Windows 10 (build 1809 / version 17763) or newer
+            - x64 architecture
+
+            ### Notes
+            MSIX installer with auto-update via `.appinstaller` is coming in a future release.
           files: |
-            publish/x64/*.msix
             publish/WolffilesUploader-*-portable-x64.zip
-            publish/wolffiles-uploader.appinstaller
           draft: false
           prerelease: false
 
-      - name: Deploy to wolffiles.eu/downloads
+      - name: Deploy portable ZIP to wolffiles.eu/downloads
+        if: steps.version.outputs.IS_RELEASE == 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -113,7 +162,8 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           local-dir: publish/
           server-dir: /httpdocs/downloads/
-          include: |
-            *.msix
-            *.zip
-            *.appinstaller
+          # only upload the zip — not the loose publish/portable/ folder content
+          exclude: |
+            **/portable/**
+            **/x64/**
+            **/*.pdb
