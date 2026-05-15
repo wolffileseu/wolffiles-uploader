@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # need full history for changelog generation
 
       - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
@@ -49,14 +51,35 @@ jobs:
           $path = "WolffilesUploader.csproj"
           $csproj = Get-Content $path -Raw
 
-          if ($csproj -match '<Version>.*?</Version>') {
-            $csproj = $csproj -replace '<Version>.*?</Version>', "<Version>$assemblyVersion</Version>"
-          } else {
-            # inject before </PropertyGroup> if missing
-            $csproj = $csproj -replace '</PropertyGroup>', "  <Version>$assemblyVersion</Version>`r`n  </PropertyGroup>", 1
+          if ($csproj -notmatch '<Version>.*?</Version>') {
+            Write-Error "<Version> tag missing in $path. Add one manually (e.g. <Version>1.0.0</Version> inside the first <PropertyGroup>)."
+            exit 1
           }
+          $csproj = $csproj -replace '<Version>.*?</Version>', "<Version>$assemblyVersion</Version>"
           $csproj | Set-Content $path -NoNewline
           Write-Host "Set version to $assemblyVersion (full: $version)"
+
+      - name: Generate changelog from commits
+        id: changelog
+        if: steps.version.outputs.IS_RELEASE == 'true'
+        shell: bash
+        run: |
+          # find the previous tag (excluding the current one)
+          PREV_TAG=$(git tag --sort=-creatordate | grep -v "^${GITHUB_REF_NAME}$" | head -1 || true)
+
+          if [[ -z "$PREV_TAG" ]]; then
+            # no previous tag — list all commits up to current tag
+            COMMITS=$(git log --pretty=format:"- %s (%an)" "${GITHUB_REF_NAME}")
+          else
+            COMMITS=$(git log --pretty=format:"- %s (%an)" "${PREV_TAG}..${GITHUB_REF_NAME}")
+          fi
+
+          # write to GITHUB_OUTPUT using a delimiter so multiline content works
+          {
+            echo "CHANGELOG<<CHANGELOG_EOF"
+            echo "$COMMITS"
+            echo "CHANGELOG_EOF"
+          } >> $GITHUB_OUTPUT
 
       - name: Restore
         run: dotnet restore WolffilesUploader.csproj -p:Platform=x64
@@ -90,34 +113,6 @@ jobs:
       #   3. Add code-signing cert as GitHub secret (CERT_BASE64, CERT_PASSWORD)
       #   4. Re-enable the two steps below
       # ──────────────────────────────────────────────────────────────────
-      # - name: Build MSIX (x64)
-      #   run: |
-      #     dotnet publish WolffilesUploader.csproj `
-      #       -c Release `
-      #       -r win-x64 `
-      #       -p:Platform=x64 `
-      #       -p:WindowsPackageType=MSIX `
-      #       -p:GenerateAppxPackageOnBuild=true `
-      #       -o publish/x64
-      #
-      # - name: Generate .appinstaller
-      #   shell: pwsh
-      #   run: |
-      #     $version = "${{ steps.version.outputs.VERSION }}"
-      #     $content = @"
-      #     <?xml version="1.0" encoding="utf-8"?>
-      #     <AppInstaller xmlns="http://schemas.microsoft.com/appx/appinstaller/2018"
-      #                   Uri="https://wolffiles.eu/downloads/wolffiles-uploader.appinstaller"
-      #                   Version="$version.0">
-      #       <MainPackage Name="WolffilesUploader" Version="$version.0"
-      #                    Publisher="CN=Wolffiles" ProcessorArchitecture="x64"
-      #                    Uri="https://wolffiles.eu/downloads/WolffilesUploader-$version-x64.msix" />
-      #       <UpdateSettings>
-      #         <OnLaunch HoursBetweenUpdateChecks="24" ShowPrompt="true" />
-      #       </UpdateSettings>
-      #     </AppInstaller>
-      #     "@
-      #     $content | Set-Content "publish/wolffiles-uploader.appinstaller"
 
       # For manual runs (workflow_dispatch): upload as Actions artifact so we can grab the build to test
       - name: Upload build artifact (manual runs)
@@ -141,6 +136,9 @@ jobs:
 
             ### Download
             - **Portable ZIP (x64):** see assets below — extract anywhere, run `WolffilesUploader.exe`
+
+            ### Changes since previous release
+            ${{ steps.changelog.outputs.CHANGELOG }}
 
             ### Requirements
             - Windows 10 (build 1809 / version 17763) or newer

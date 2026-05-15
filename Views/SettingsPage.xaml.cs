@@ -12,6 +12,7 @@ public sealed partial class SettingsPage : Page
     private readonly WolffilesApiService _api = App.Services.GetRequiredService<WolffilesApiService>();
     private readonly UpdateCheckerService _updater = new();
     private string? _latestReleaseUrl;
+    private bool _languageLoaded;
 
     public SettingsPage()
     {
@@ -39,6 +40,7 @@ public sealed partial class SettingsPage : Page
             "fr-FR" => 2,
             _ => 1 // default English
         };
+        _languageLoaded = true;
     }
 
     private void LoadVersion()
@@ -73,10 +75,36 @@ public sealed partial class SettingsPage : Page
         }
     }
 
-    private void LanguageCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void LanguageCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (LanguageCombo.SelectedItem is ComboBoxItem item && item.Tag is string tag)
-            ApplicationLanguage = tag;
+        if (!_languageLoaded) return;
+        if (LanguageCombo.SelectedItem is not ComboBoxItem item || item.Tag is not string tag) return;
+
+        ApplicationLanguage = tag;
+
+        var loader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader();
+        var dialog = new ContentDialog
+        {
+            Title = loader.GetString("Settings_LanguageRestartTitle"),
+            Content = loader.GetString("Settings_LanguageRestartMessage"),
+            PrimaryButtonText = loader.GetString("Settings_RestartNow"),
+            CloseButtonText = loader.GetString("Settings_Later"),
+            DefaultButton = ContentDialogButton.Primary,
+            XamlRoot = this.XamlRoot
+        };
+
+        var result = await dialog.ShowAsync();
+        if (result != ContentDialogResult.Primary) return;
+
+        try
+        {
+            var exe = Environment.ProcessPath;
+            if (!string.IsNullOrEmpty(exe))
+                System.Diagnostics.Process.Start(exe);
+        }
+        catch { /* ignore — Exit still runs */ }
+
+        Microsoft.UI.Xaml.Application.Current.Exit();
     }
 
     private async void CheckUpdate_Click(object sender, RoutedEventArgs e)

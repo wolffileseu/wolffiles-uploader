@@ -17,13 +17,13 @@
                 BorderThickness="0,0,0,1"
                 Padding="20,12">
             <Grid>
-                <TextBlock Text="Upload History"
+                <TextBlock x:Uid="History_Title"
                            FontSize="16" FontWeight="SemiBold"
                            Foreground="{StaticResource TextPrimaryBrush}"
                            VerticalAlignment="Center" />
                 <StackPanel Orientation="Horizontal" Spacing="8"
                             HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Content="🗑 Verlauf löschen"
+                    <Button x:Uid="History_ClearButton"
                             Command="{x:Bind ViewModel.ClearHistoryCommand}" />
                 </StackPanel>
             </Grid>
@@ -44,7 +44,8 @@
                             BorderBrush="#22263A" BorderThickness="1"
                             CornerRadius="7" Padding="14,12" Margin="0,0,8,0">
                         <StackPanel>
-                            <TextBlock Text="GESAMT UPLOADS" FontSize="10" FontFamily="Consolas"
+                            <TextBlock x:Uid="History_TotalUploadsLabel"
+                                       FontSize="10" FontFamily="Consolas"
                                        Foreground="#424860" CharacterSpacing="80" />
                             <TextBlock Text="{x:Bind ViewModel.Stats.TotalUploads, Mode=OneWay}"
                                        FontSize="22" FontWeight="Bold"
@@ -56,7 +57,8 @@
                             BorderBrush="#22263A" BorderThickness="1"
                             CornerRadius="7" Padding="14,12" Margin="0,0,8,0">
                         <StackPanel>
-                            <TextBlock Text="HOCHGELADEN" FontSize="10" FontFamily="Consolas"
+                            <TextBlock x:Uid="History_UploadedLabel"
+                                       FontSize="10" FontFamily="Consolas"
                                        Foreground="#424860" CharacterSpacing="80" />
                             <TextBlock Text="{x:Bind ViewModel.Stats.TotalSizeDisplay, Mode=OneWay}"
                                        FontSize="22" FontWeight="Bold"
@@ -68,7 +70,8 @@
                             BorderBrush="#22263A" BorderThickness="1"
                             CornerRadius="7" Padding="14,12">
                         <StackPanel>
-                            <TextBlock Text="ERFOLGREICH" FontSize="10" FontFamily="Consolas"
+                            <TextBlock x:Uid="History_SuccessfulLabel"
+                                       FontSize="10" FontFamily="Consolas"
                                        Foreground="#424860" CharacterSpacing="80" />
                             <TextBlock Text="{x:Bind ViewModel.Stats.SuccessCount, Mode=OneWay}"
                                        FontSize="22" FontWeight="Bold"
@@ -82,7 +85,7 @@
                             Visibility="{x:Bind ViewModel.IsEmpty, Mode=OneWay,
                                 Converter={StaticResource BoolToVisibilityConverter}}">
                     <TextBlock Text="📭" FontSize="36" HorizontalAlignment="Center" Opacity="0.3" />
-                    <TextBlock Text="Noch keine Uploads"
+                    <TextBlock x:Uid="History_Empty"
                                FontSize="13" Foreground="#424860"
                                HorizontalAlignment="Center" />
                 </StackPanel>

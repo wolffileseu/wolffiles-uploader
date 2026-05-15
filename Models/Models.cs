@@ -47,16 +47,44 @@ public partial class UploadItem : ObservableObject
         : $"{FileSizeBytes / 1024.0:F1} KB";
     public string FileExtension => Path.GetExtension(FilePath).TrimStart('.').ToUpper();
 
+    public const int MaxScreenshots = 10;
+
     [ObservableProperty] private string _title = "";
     [ObservableProperty] private string _description = "";
     [ObservableProperty] private int _categoryId;
     [ObservableProperty] private string _version = "";
     [ObservableProperty] private string _author = "";
+    [ObservableProperty] private string _game = "auto";
     [ObservableProperty] private UploadStatus _status = UploadStatus.Pending;
     [ObservableProperty] private double _progress;
     [ObservableProperty] private string _speedDisplay = "";
     [ObservableProperty] private string _errorMessage = "";
-    [ObservableProperty] private string? _screenshotPath;
+    [ObservableProperty] private string _customTagInput = "";
+
+    public ObservableCollection<string> Tags { get; } = [];
+    public ObservableCollection<string> CustomTags { get; } = [];
+    public ObservableCollection<string> ScreenshotPaths { get; } = [];
+
+    public UploadItem()
+    {
+        ScreenshotPaths.CollectionChanged += (_, _) =>
+        {
+            OnPropertyChanged(nameof(ScreenshotsLabel));
+            OnPropertyChanged(nameof(HasScreenshots));
+            OnPropertyChanged(nameof(CanAddMoreScreenshots));
+        };
+    }
+
+    public string ScreenshotsLabel => $"{ScreenshotPaths.Count} / {MaxScreenshots}";
+    public bool HasScreenshots => ScreenshotPaths.Count > 0;
+    public bool CanAddMoreScreenshots => ScreenshotPaths.Count < MaxScreenshots;
+
+    // Tag arrays exposed as instance properties so XAML DataTemplate x:Bind can resolve them
+    public string[] MapTypeTags => UploadTags.MapType;
+    public string[] StyleTags   => UploadTags.Style;
+    public string[] SizeTags    => UploadTags.Size;
+    public string[] ThemeTags   => UploadTags.Theme;
+    public string[] QualityTags => UploadTags.Quality;
 
     public string? ResultUrl { get; set; }
     public DateTime? UploadedAt { get; set; }

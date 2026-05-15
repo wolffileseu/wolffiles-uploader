@@ -15,7 +15,7 @@
                 BorderBrush="{StaticResource BgElevatedBrush}"
                 BorderThickness="0,0,0,1"
                 Padding="20,12">
-            <TextBlock Text="Einstellungen"
+            <TextBlock x:Uid="Settings_Title"
                        FontSize="16" FontWeight="SemiBold"
                        Foreground="{StaticResource TextPrimaryBrush}" />
         </Border>
@@ -24,7 +24,8 @@
             <StackPanel Spacing="12" MaxWidth="600" HorizontalAlignment="Left">
 
                 <!-- Account -->
-                <TextBlock Text="ACCOUNT" FontSize="11" FontFamily="Consolas"
+                <TextBlock x:Uid="Settings_AccountHeader"
+                           FontSize="11" FontFamily="Consolas"
                            Foreground="#424860" CharacterSpacing="100" Margin="0,8,0,0" />
 
                 <Border Background="{StaticResource BgElevatedBrush}"
@@ -57,8 +58,8 @@
                                        CharacterSpacing="50" />
                         </StackPanel>
 
-                        <Button Grid.Column="2"
-                                Content="Ausloggen"
+                        <Button x:Uid="Settings_LogoutButton"
+                                Grid.Column="2"
                                 VerticalAlignment="Center"
                                 Click="Logout_Click" />
                     </Grid>
@@ -73,23 +74,23 @@
                         BorderBrush="#22263A" BorderThickness="1"
                         CornerRadius="7" Padding="16">
                     <StackPanel Spacing="12">
-                        <TextBlock Text="Sprache der App"
+                        <TextBlock x:Uid="Settings_LanguageAppLabel"
                                    FontSize="13" Foreground="{StaticResource TextPrimaryBrush}" />
                         <ComboBox x:Name="LanguageCombo"
                                   HorizontalAlignment="Stretch"
                                   SelectionChanged="LanguageCombo_SelectionChanged">
-                            <ComboBoxItem Tag="de-DE" Content="🇩🇪  Deutsch" />
-                            <ComboBoxItem Tag="en-US" Content="🇬🇧  English" />
-                            <ComboBoxItem Tag="fr-FR" Content="🇫🇷  Français" />
+                            <ComboBoxItem Tag="de-DE" Content="DE  Deutsch" />
+                            <ComboBoxItem Tag="en-US" Content="EN  English" />
+                            <ComboBoxItem Tag="fr-FR" Content="FR  Français" />
                         </ComboBox>
-                        <TextBlock Text="Sprachänderung wird nach Neustart der App aktiv."
+                        <TextBlock x:Uid="Settings_LanguageHint"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="#424860" />
                     </StackPanel>
                 </Border>
 
                 <!-- Version & Update -->
-                <TextBlock Text="VERSION &amp; UPDATE"
+                <TextBlock x:Uid="Settings_VersionUpdateHeader"
                            FontSize="11" FontFamily="Consolas"
                            Foreground="#424860" CharacterSpacing="100" Margin="0,8,0,0" />
 
@@ -106,9 +107,9 @@
                                            FontSize="11" FontFamily="Consolas"
                                            Foreground="#424860" />
                             </StackPanel>
-                            <Button HorizontalAlignment="Right"
+                            <Button x:Uid="Settings_CheckUpdateButton"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
-                                    Content="Auf Updates prüfen"
                                     Click="CheckUpdate_Click" />
                         </Grid>
 
@@ -123,15 +124,15 @@
                                            Foreground="{StaticResource AccentGoldBrush}"
                                            VerticalAlignment="Center" />
                                 <Button x:Name="UpdateBtn"
+                                        x:Uid="Settings_DownloadButton"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource AccentButtonStyle}"
-                                        Content="Herunterladen"
                                         Click="Update_Click" />
                             </Grid>
                         </Border>
 
                         <TextBlock x:Name="UpToDateText"
-                                   Text="✓ Du nutzt die neueste Version"
+                                   x:Uid="Settings_UpToDateText"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="{StaticResource StatusGreenBrush}"
                                    Visibility="Collapsed" />
@@ -139,7 +140,7 @@
                 </Border>
 
                 <!-- Links -->
-                <TextBlock Text="LINKS"
+                <TextBlock x:Uid="Settings_LinksHeader"
                            FontSize="11" FontFamily="Consolas"
                            Foreground="#424860" CharacterSpacing="100" Margin="0,8,0,0" />
 
@@ -147,13 +148,13 @@
                         BorderBrush="#22263A" BorderThickness="1"
                         CornerRadius="7" Padding="16">
                     <StackPanel Spacing="8">
-                        <HyperlinkButton Content="🌐  wolffiles.eu öffnen"
+                        <HyperlinkButton x:Uid="Settings_LinkOpenSite"
                                          NavigateUri="https://wolffiles.eu"
                                          Foreground="{StaticResource TextSecondaryBrush}" />
-                        <HyperlinkButton Content="🐛  Bug melden / Feedback"
+                        <HyperlinkButton x:Uid="Settings_LinkBugReport"
                                          NavigateUri="https://wolffiles.eu/contact"
                                          Foreground="{StaticResource TextSecondaryBrush}" />
-                        <HyperlinkButton Content="📦  GitHub Releases"
+                        <HyperlinkButton x:Uid="Settings_LinkGitHub"
                                          NavigateUri="https://github.com/wolffileseu/wolffiles-uploader/releases"
                                          Foreground="{StaticResource TextSecondaryBrush}" />
                     </StackPanel>

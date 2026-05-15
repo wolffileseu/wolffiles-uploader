@@ -14,7 +14,7 @@
                            Foreground="{StaticResource TextPrimaryBrush}"
                            HorizontalAlignment="Center"
                            FontFamily="Rajdhani, Segoe UI" />
-                <TextBlock Text="uploader v1.0 · wolffiles.eu"
+                <TextBlock x:Name="VersionText"
                            FontSize="11"
                            Foreground="{StaticResource TextSecondaryBrush}"
                            HorizontalAlignment="Center"
@@ -38,19 +38,19 @@
 
                     <!-- Email -->
                     <StackPanel Spacing="6">
-                        <TextBlock Text="E-MAIL / BENUTZERNAME"
+                        <TextBlock x:Uid="Login_EmailLabel"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="{StaticResource TextSecondaryBrush}"
                                    CharacterSpacing="80" />
                         <TextBox x:Name="EmailBox"
-                                 PlaceholderText="dein@email.com"
+                                 x:Uid="Login_EmailInput"
                                  Text="{x:Bind ViewModel.Email, Mode=TwoWay}"
                                  KeyDown="TextBox_KeyDown" />
                     </StackPanel>
 
                     <!-- Password -->
                     <StackPanel Spacing="6">
-                        <TextBlock Text="PASSWORT"
+                        <TextBlock x:Uid="Login_PasswordLabel"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="{StaticResource TextSecondaryBrush}"
                                    CharacterSpacing="80" />
@@ -61,7 +61,7 @@
                     </StackPanel>
 
                     <!-- Remember Me -->
-                    <CheckBox Content="Angemeldet bleiben"
+                    <CheckBox x:Uid="Login_RememberCheckbox"
                               IsChecked="{x:Bind ViewModel.RememberMe, Mode=TwoWay}"
                               Foreground="{StaticResource TextSecondaryBrush}" />
 
@@ -71,7 +71,7 @@
                             Style="{StaticResource AccentButtonStyle}"
                             Margin="0,8,0,0">
                         <Grid>
-                            <TextBlock Text="EINLOGGEN"
+                            <TextBlock x:Uid="Login_SubmitText"
                                        FontWeight="SemiBold"
                                        FontFamily="Consolas"
                                        CharacterSpacing="120"
@@ -82,7 +82,7 @@
                     </Button>
 
                     <!-- Register hint -->
-                    <HyperlinkButton Content="Noch kein Account? → wolffiles.eu/register"
+                    <HyperlinkButton x:Uid="Login_RegisterLink"
                                      NavigateUri="https://wolffiles.eu/register"
                                      HorizontalAlignment="Center"
                                      FontSize="11"

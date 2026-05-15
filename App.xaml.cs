@@ -35,6 +35,21 @@ public partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
+        // Apply saved language override BEFORE XAML resources are loaded by MainWindow.
+        try
+        {
+            var langPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "WolffilesUploader", "language.txt");
+            if (File.Exists(langPath))
+            {
+                var tag = File.ReadAllText(langPath).Trim();
+                if (!string.IsNullOrEmpty(tag))
+                    Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = tag;
+            }
+        }
+        catch { /* silently fall back to system default */ }
+
         MainWindow = new MainWindow();
         MainWindow.Activate();
 

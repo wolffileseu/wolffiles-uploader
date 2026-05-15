@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build *)",
+      "Bash(dotnet-ildasm CommunityToolkit.WinUI.Controls.Primitives.dll)",
+      "PowerShell($asm = [Reflection.Assembly]::LoadFile\\(\"C:\\\\Users\\\\wahke\\\\.nuget\\\\packages\\\\communitytoolkit.winui.controls.primitives\\\\8.1.240916\\\\lib\\\\net8.0-windows10.0.22621\\\\CommunityToolkit.WinUI.Controls.Primitives.dll\"\\); $asm.GetExportedTypes\\(\\) | Where-Object { $_.Name -match 'Wrap' } | Select-Object FullName)",
+      "PowerShell($asm = [Reflection.Assembly]::ReflectionOnlyLoadFrom\\(\"C:\\\\Users\\\\wahke\\\\.nuget\\\\packages\\\\communitytoolkit.winui.controls.primitives\\\\8.1.240916\\\\lib\\\\net8.0-windows10.0.22621\\\\CommunityToolkit.WinUI.Controls.Primitives.dll\"\\); $asm.GetTypes\\(\\) | Where-Object { $_.Name -match 'Wrap' } | Select-Object FullName)",
+      "PowerShell(try { $asm = [Reflection.Assembly]::ReflectionOnlyLoadFrom\\(\"C:\\\\Users\\\\wahke\\\\.nuget\\\\packages\\\\communitytoolkit.winui.controls.primitives\\\\8.1.240916\\\\lib\\\\net8.0-windows10.0.22621\\\\CommunityToolkit.WinUI.Controls.Primitives.dll\"\\); $asm.GetTypes\\(\\) } catch [Reflection.ReflectionTypeLoadException] { $_.Exception.Types | Where-Object { $_ -ne $null -and $_.Name -match 'Wrap' } | Select-Object FullName })",
+      "Bash(\"C:\\\\Users\\\\wahke\\\\.nuget\\\\packages\\\\microsoft.windowsappsdk\\\\1.5.240802000\\\\tools\\\\net472\\\\XamlCompiler.exe\" \"C:\\\\Dev\\\\wolffiles-uploader\\\\obj\\\\x64\\\\Debug\\\\net8.0-windows10.0.19041.0\\\\win-x64\\\\input.json\" \"C:\\\\Dev\\\\wolffiles-uploader\\\\obj\\\\x64\\\\Debug\\\\net8.0-windows10.0.19041.0\\\\win-x64\\\\output.json\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(e\\) for e in d.get\\('MSBuildLogEntries',[]\\)]\")",
+      "Bash(\"C:\\\\Users\\\\wahke\\\\.nuget\\\\packages\\\\microsoft.windowsappsdk\\\\1.5.240802000\\\\tools\\\\net472\\\\XamlCompiler.exe\" \"C:\\\\Dev\\\\wolffiles-uploader\\\\obj\\\\x64\\\\Debug\\\\net8.0-windows10.0.19041.0\\\\win-x64\\\\input.json\" \"C:\\\\Dev\\\\wolffiles-uploader\\\\obj\\\\x64\\\\Debug\\\\net8.0-windows10.0.19041.0\\\\win-x64\\\\output_test.json\")",
+      "Bash(echo \"Exit: $?\")",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(e.get\\('Message',''\\)\\) for e in d.get\\('MSBuildLogEntries',[]\\)]\")",
+      "Bash(grep -n \"Tag Groups\\\\|</StackPanel>\\\\s*$\\\\|</ListView>\" \"C:\\\\Dev\\\\wolffiles-uploader\\\\Views\\\\UploadQueuePage.xaml\")",
+      "PowerShell(dotnet build *)",
+      "Bash(grep -oE \"communitytoolkit[^\\\\\\\\\\\\\\\\]*\\\\\\\\\\\\\\\\[^\\\\\\\\\\\\\\\\]*\\\\\\\\\\\\\\\\lib\\\\\\\\\\\\\\\\[^\\\\\\\\\\\\\\\\]*\\\\\\\\\\\\\\\\[^\\\\\\\\\\\\\\\\\\\\\"]+\" \"C:\\\\Users\\\\wahke\\\\.claude\\\\projects\\\\C--Dev-wolffiles-uploader\\\\94b031ef-76a3-47f2-a4ac-6a08271bff52\\\\tool-results\\\\bwe4mz4ti.txt\")",
+      "Bash(xxd)",
+      "Bash(grep -lE \"$\\(printf '\\\\xc3\\\\x83'\\)|$\\(printf '\\\\xc3\\\\xa2\\\\xe2\\\\x82\\\\xac'\\)|$\\(printf '\\\\xc3\\\\xb0\\\\xc5\\\\xb8'\\)\" C:\\\\\\\\Dev\\\\\\\\wolffiles-uploader\\\\\\\\Views\\\\\\\\*.xaml)"
+    ]
+  }
+}

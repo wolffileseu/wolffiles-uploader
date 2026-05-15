@@ -168,18 +168,32 @@ public class WolffilesApiService
         form.Add(new StringContent(item.Title), "title");
         form.Add(new StringContent(item.Description ?? ""), "description");
         form.Add(new StringContent(item.CategoryId.ToString()), "category_id");
+        form.Add(new StringContent(item.Game ?? "auto"), "game");
         if (!string.IsNullOrEmpty(item.Version))
             form.Add(new StringContent(item.Version), "version");
         if (!string.IsNullOrEmpty(item.Author))
             form.Add(new StringContent(item.Author), "author");
 
-        // Screenshot
-        if (!string.IsNullOrEmpty(item.ScreenshotPath) && File.Exists(item.ScreenshotPath))
+        // Tags
+        foreach (var tag in item.Tags)
+            form.Add(new StringContent(tag), "tags[]");
+
+        // Screenshots (multi, max 10)
+        foreach (var path in item.ScreenshotPaths)
         {
-            var imgBytes = await File.ReadAllBytesAsync(item.ScreenshotPath, cancellationToken);
-            var imgContent = new ByteArrayContent(imgBytes);
-            imgContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-            form.Add(imgContent, "screenshot", Path.GetFileName(item.ScreenshotPath));
+            if (string.IsNullOrEmpty(path) || !File.Exists(path)) continue;
+            var bytes = await File.ReadAllBytesAsync(path, cancellationToken);
+            var content = new ByteArrayContent(bytes);
+            var ext = Path.GetExtension(path).TrimStart('.').ToLowerInvariant();
+            var mime = ext switch
+            {
+                "jpg" or "jpeg" => "image/jpeg",
+                "png"           => "image/png",
+                "webp"          => "image/webp",
+                _               => "application/octet-stream"
+            };
+            content.Headers.ContentType = new MediaTypeHeaderValue(mime);
+            form.Add(content, "screenshots[]", Path.GetFileName(path));
         }
 
         // Progress simulation (no real progress without wrapper, but shows activity)
@@ -259,39 +273,4 @@ file class PaginatedWrapper<T>
 {
     [JsonPropertyName("data")] public List<T>? Data { get; set; }
     [JsonPropertyName("total")] public int Total { get; set; }
-}
-
-// ── Progress helper ──────────────────────────────────────────────────────────
-
-internal class ProgressableContent : HttpContent
-{
-    private readonly HttpContent _inner;
-    private readonly IProgress<double>? _progress;
-    private readonly long _totalBytes;
-
-    public ProgressableContent(HttpContent inner, IProgress<double>? progress, long totalBytes)
-    {
-        _inner = inner;
-        _progress = progress;
-        _totalBytes = totalBytes;
-        foreach (var h in inner.Headers)
-            Headers.TryAddWithoutValidation(h.Key, h.Value);
-    }
-
-    protected override async Task SerializeToStreamAsync(Stream stream, System.Net.TransportContext? context)
-    {
-        var buffer = new byte[81920];
-        long written = 0;
-        using var src = await _inner.ReadAsStreamAsync();
-        int read;
-        while ((read = await src.ReadAsync(buffer)) > 0)
-        {
-            await stream.WriteAsync(buffer.AsMemory(0, read));
-            written += read;
-            _progress?.Report(_totalBytes > 0 ? (double)written / _totalBytes * 100 : 0);
-        }
-    }
-
-    // Return false so HttpClient uses chunked transfer instead of Content-Length
-    protected override bool TryComputeLength(out long length) { length = -1; return false; }
 }

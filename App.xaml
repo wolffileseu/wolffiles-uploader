@@ -20,6 +20,73 @@
             <SolidColorBrush x:Key="StatusRedBrush"     Color="#E05252" />
             <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#161B26" />
 
+            <!-- Tag pill style -->
+            <Style x:Key="TagPillStyle" TargetType="ToggleButton">
+                <Setter Property="Background" Value="#1A1D2A" />
+                <Setter Property="BorderBrush" Value="#22263A" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Foreground" Value="#A0A4B8" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="10,4" />
+                <Setter Property="MinWidth" Value="0" />
+                <Setter Property="MinHeight" Value="0" />
+                <Setter Property="FontSize" Value="11" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border x:Name="RootBorder"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="ContentPart"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Content="{TemplateBinding Content}"
+                                                  Foreground="{TemplateBinding Foreground}" />
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootBorder.BorderBrush" Value="#444C66" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootBorder.Background" Value="#22263A" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Checked">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootBorder.Background" Value="#1A1800" />
+                                                <Setter Target="RootBorder.BorderBrush" Value="{StaticResource AccentGoldBrush}" />
+                                                <Setter Target="ContentPart.Foreground" Value="{StaticResource AccentGoldBrush}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="CheckedPointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootBorder.Background" Value="#231F00" />
+                                                <Setter Target="RootBorder.BorderBrush" Value="{StaticResource AccentGoldBrush}" />
+                                                <Setter Target="ContentPart.Foreground" Value="{StaticResource AccentGoldBrush}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="CheckedPressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="RootBorder.Background" Value="#2A2400" />
+                                                <Setter Target="RootBorder.BorderBrush" Value="{StaticResource AccentGoldBrush}" />
+                                                <Setter Target="ContentPart.Foreground" Value="{StaticResource AccentGoldBrush}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <!-- Converters -->
             <conv:BoolToVisibilityConverter         x:Key="BoolToVisibilityConverter" />
             <conv:BoolToInverseVisibilityConverter  x:Key="BoolToInverseVisibilityConverter" />
@@ -31,6 +98,8 @@
             <conv:BoolToStatusTextConverter         x:Key="BoolToStatusTextConverter" />
             <conv:BoolToFontWeightConverter         x:Key="BoolToFontWeightConverter" />
             <conv:BoolToForegroundConverter         x:Key="BoolToForegroundConverter" />
+            <conv:TagValueToLabelConverter          x:Key="TagValueToLabelConverter" />
+            <conv:PathToImageSourceConverter        x:Key="PathToImageSourceConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

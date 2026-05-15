@@ -1,94 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- Login -->
-  <data name="Login_Title" xml:space="preserve"><value>Einloggen</value></data>
-  <data name="Login_Email" xml:space="preserve"><value>E-Mail / Benutzername</value></data>
-  <data name="Login_Password" xml:space="preserve"><value>Passwort</value></data>
-  <data name="Login_RememberMe" xml:space="preserve"><value>Angemeldet bleiben</value></data>
-  <data name="Login_Button" xml:space="preserve"><value>EINLOGGEN</value></data>
-  <data name="Login_NoAccount" xml:space="preserve"><value>Noch kein Account?</value></data>
-  <data name="Login_Register" xml:space="preserve"><value>Jetzt registrieren</value></data>
+  <!-- ResourceLoader-accessed (bare keys — referenced from C# code, do not rename) -->
+  <data name="Settings_LanguageRestartTitle" xml:space="preserve"><value>Sprache ändern</value></data>
+  <data name="Settings_LanguageRestartMessage" xml:space="preserve"><value>Die App muss neu gestartet werden, damit die Sprachänderung wirkt.</value></data>
+  <data name="Settings_RestartNow" xml:space="preserve"><value>Jetzt neu starten</value></data>
+  <data name="Settings_Later" xml:space="preserve"><value>Später</value></data>
+  <data name="Update_Available_Title" xml:space="preserve"><value>Update verfügbar</value></data>
+  <data name="Update_Available_Message" xml:space="preserve"><value>Eine neue Version (v{0}) ist verfügbar. Du nutzt aktuell v{1}.</value></data>
+  <data name="Update_Download_Button" xml:space="preserve"><value>Jetzt herunterladen</value></data>
+  <data name="Update_Later_Button" xml:space="preserve"><value>Später</value></data>
 
-  <!-- Register -->
-  <data name="Register_Title" xml:space="preserve"><value>Registrieren</value></data>
-  <data name="Register_Username" xml:space="preserve"><value>Benutzername</value></data>
-  <data name="Register_Email" xml:space="preserve"><value>E-Mail-Adresse</value></data>
-  <data name="Register_Password" xml:space="preserve"><value>Passwort</value></data>
-  <data name="Register_PasswordConfirm" xml:space="preserve"><value>Passwort bestätigen</value></data>
-  <data name="Register_Button" xml:space="preserve"><value>ACCOUNT ERSTELLEN</value></data>
-  <data name="Register_HasAccount" xml:space="preserve"><value>Schon einen Account?</value></data>
-  <data name="Register_Login" xml:space="preserve"><value>Einloggen</value></data>
-  <data name="Register_PasswordHint" xml:space="preserve"><value>Mindestens 8 Zeichen</value></data>
+  <!-- Login -->
+  <data name="Login_EmailLabel.Text" xml:space="preserve"><value>E-MAIL / BENUTZERNAME</value></data>
+  <data name="Login_EmailInput.PlaceholderText" xml:space="preserve"><value>dein@email.com</value></data>
+  <data name="Login_PasswordLabel.Text" xml:space="preserve"><value>PASSWORT</value></data>
+  <data name="Login_RememberCheckbox.Content" xml:space="preserve"><value>Angemeldet bleiben</value></data>
+  <data name="Login_SubmitText.Text" xml:space="preserve"><value>EINLOGGEN</value></data>
+  <data name="Login_RegisterLink.Content" xml:space="preserve"><value>Noch kein Account? → wolffiles.eu/register</value></data>
 
   <!-- Navigation -->
-  <data name="Nav_Queue" xml:space="preserve"><value>Upload Queue</value></data>
-  <data name="Nav_History" xml:space="preserve"><value>Verlauf</value></data>
-  <data name="Nav_Settings" xml:space="preserve"><value>Einstellungen</value></data>
-  <data name="Nav_Logout" xml:space="preserve"><value>Ausloggen</value></data>
+  <data name="Nav_Queue.Content" xml:space="preserve"><value>Upload Queue</value></data>
+  <data name="Nav_History.Content" xml:space="preserve"><value>Verlauf</value></data>
+  <data name="Nav_Settings.Content" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Nav_Logout.Content" xml:space="preserve"><value>Ausloggen</value></data>
 
   <!-- Upload Queue -->
-  <data name="Queue_Title" xml:space="preserve"><value>Upload Queue</value></data>
-  <data name="Queue_DropHint" xml:space="preserve"><value>Dateien hierher ziehen oder klicken</value></data>
-  <data name="Queue_DropSub" xml:space="preserve"><value>Mehrere Dateien auf einmal möglich</value></data>
-  <data name="Queue_Browse" xml:space="preserve"><value>Dateien auswählen</value></data>
-  <data name="Queue_UploadAll" xml:space="preserve"><value>Alle hochladen</value></data>
-  <data name="Queue_ClearDone" xml:space="preserve"><value>Fertige löschen</value></data>
-  <data name="Queue_Cancel" xml:space="preserve"><value>Abbrechen</value></data>
-  <data name="Queue_Files" xml:space="preserve"><value>Dateien</value></data>
+  <data name="Queue_Title.Text" xml:space="preserve"><value>Upload Queue</value></data>
+  <data name="Queue_ClearDoneButton.Content" xml:space="preserve"><value>✕ Fertige löschen</value></data>
+  <data name="Queue_UploadAllText.Text" xml:space="preserve"><value>Alle hochladen</value></data>
+  <data name="Queue_DropHint.Text" xml:space="preserve"><value>Dateien hierher ziehen oder klicken</value></data>
+  <data name="Queue_DropSub.Text" xml:space="preserve"><value>Mehrere Dateien auf einmal möglich</value></data>
+  <data name="Queue_BrowseButton.Content" xml:space="preserve"><value>Dateien auswählen</value></data>
 
-  <!-- Form fields -->
-  <data name="Field_Title" xml:space="preserve"><value>TITEL</value></data>
-  <data name="Field_Category" xml:space="preserve"><value>KATEGORIE</value></data>
-  <data name="Field_Description" xml:space="preserve"><value>BESCHREIBUNG</value></data>
-  <data name="Field_Version" xml:space="preserve"><value>VERSION</value></data>
-  <data name="Field_Author" xml:space="preserve"><value>AUTOR</value></data>
-  <data name="Field_Screenshots" xml:space="preserve"><value>SCREENSHOTS</value></data>
-  <data name="Field_TitlePlaceholder" xml:space="preserve"><value>Dateititel...</value></data>
-  <data name="Field_CategoryPlaceholder" xml:space="preserve"><value>Wählen...</value></data>
-  <data name="Field_DescriptionPlaceholder" xml:space="preserve"><value>Kurze Beschreibung der Datei...</value></data>
+  <!-- Form labels + inputs -->
+  <data name="Field_TitleLabel.Text" xml:space="preserve"><value>TITEL</value></data>
+  <data name="Field_TitleInput.PlaceholderText" xml:space="preserve"><value>Dateititel...</value></data>
+  <data name="Field_CategoryLabel.Text" xml:space="preserve"><value>KATEGORIE</value></data>
+  <data name="Field_CategoryInput.PlaceholderText" xml:space="preserve"><value>Wählen...</value></data>
+  <data name="Field_GameLabel.Text" xml:space="preserve"><value>GAME</value></data>
+  <data name="Field_GameAuto.Content" xml:space="preserve"><value>Automatisch erkennen</value></data>
+  <data name="Field_VersionLabel.Text" xml:space="preserve"><value>VERSION</value></data>
+  <data name="Field_VersionInput.PlaceholderText" xml:space="preserve"><value>z.B. 1.0, final, beta2</value></data>
+  <data name="Field_AuthorLabel.Text" xml:space="preserve"><value>ORIGINAL AUTHOR</value></data>
+  <data name="Field_AuthorInput.PlaceholderText" xml:space="preserve"><value>Map-/Mod-Ersteller</value></data>
+  <data name="Field_DescriptionLabel.Text" xml:space="preserve"><value>BESCHREIBUNG</value></data>
+  <data name="Field_DescriptionInput.PlaceholderText" xml:space="preserve"><value>Kurze Beschreibung...</value></data>
+  <data name="Field_ScreenshotsLabel.Text" xml:space="preserve"><value>SCREENSHOTS (OPTIONAL, MAX. 10)</value></data>
+  <data name="Field_ChooseImagesButton.Content" xml:space="preserve"><value>Bilder wählen</value></data>
 
-  <!-- Status -->
-  <data name="Status_Uploading" xml:space="preserve"><value>LÄUFT</value></data>
-  <data name="Status_Done" xml:space="preserve"><value>FERTIG</value></data>
-  <data name="Status_Pending" xml:space="preserve"><value>WARTEND</value></data>
-  <data name="Status_Error" xml:space="preserve"><value>FEHLER</value></data>
-  <data name="Status_Cancelled" xml:space="preserve"><value>ABGEBROCHEN</value></data>
+  <!-- Tag groups -->
+  <data name="Tag_Group_MapType.Text" xml:space="preserve"><value>KARTEN-TYP</value></data>
+  <data name="Tag_Group_Style.Text" xml:space="preserve"><value>STIL</value></data>
+  <data name="Tag_Group_Size.Text" xml:space="preserve"><value>GRÖSSE</value></data>
+  <data name="Tag_Group_Theme.Text" xml:space="preserve"><value>THEMA</value></data>
+  <data name="Tag_Group_Quality.Text" xml:space="preserve"><value>QUALITÄT</value></data>
+  <data name="Tag_Group_Custom.Text" xml:space="preserve"><value>EIGENE TAGS</value></data>
+  <data name="Tag_CustomInput.PlaceholderText" xml:space="preserve"><value>Eigenes Tag...</value></data>
+  <data name="Tag_AddButton.Content" xml:space="preserve"><value>Hinzufügen</value></data>
 
   <!-- History -->
-  <data name="History_Title" xml:space="preserve"><value>Upload-Verlauf</value></data>
-  <data name="History_TotalUploads" xml:space="preserve"><value>Gesamt Uploads</value></data>
-  <data name="History_TotalSize" xml:space="preserve"><value>Hochgeladen</value></data>
-  <data name="History_Successful" xml:space="preserve"><value>Erfolgreich</value></data>
-  <data name="History_Filename" xml:space="preserve"><value>Dateiname</value></data>
-  <data name="History_Category" xml:space="preserve"><value>Kategorie</value></data>
-  <data name="History_Size" xml:space="preserve"><value>Größe</value></data>
-  <data name="History_Date" xml:space="preserve"><value>Datum</value></data>
-  <data name="History_ClearAll" xml:space="preserve"><value>Verlauf löschen</value></data>
-  <data name="History_Export" xml:space="preserve"><value>Exportieren</value></data>
-  <data name="History_Empty" xml:space="preserve"><value>Noch keine Uploads</value></data>
+  <data name="History_Title.Text" xml:space="preserve"><value>Upload-Verlauf</value></data>
+  <data name="History_ClearButton.Content" xml:space="preserve"><value>🗑 Verlauf löschen</value></data>
+  <data name="History_TotalUploadsLabel.Text" xml:space="preserve"><value>GESAMT UPLOADS</value></data>
+  <data name="History_UploadedLabel.Text" xml:space="preserve"><value>HOCHGELADEN</value></data>
+  <data name="History_SuccessfulLabel.Text" xml:space="preserve"><value>ERFOLGREICH</value></data>
+  <data name="History_Empty.Text" xml:space="preserve"><value>Noch keine Uploads</value></data>
 
   <!-- Settings -->
-  <data name="Settings_Title" xml:space="preserve"><value>Einstellungen</value></data>
-  <data name="Settings_Language" xml:space="preserve"><value>Sprache</value></data>
-  <data name="Settings_Account" xml:space="preserve"><value>Account</value></data>
-  <data name="Settings_Version" xml:space="preserve"><value>Version</value></data>
-  <data name="Settings_CheckUpdate" xml:space="preserve"><value>Auf Updates prüfen</value></data>
-  <data name="Settings_UpdateAvailable" xml:space="preserve"><value>Update verfügbar</value></data>
-  <data name="Settings_UpToDate" xml:space="preserve"><value>Du nutzt die neueste Version</value></data>
-  <data name="Settings_Download" xml:space="preserve"><value>Herunterladen</value></data>
-  <data name="Settings_OpenSite" xml:space="preserve"><value>wolffiles.eu öffnen</value></data>
-
-  <!-- Errors -->
-  <data name="Error_NoConnection" xml:space="preserve"><value>Keine Verbindung zu wolffiles.eu</value></data>
-  <data name="Error_LoginFailed" xml:space="preserve"><value>Login fehlgeschlagen</value></data>
-  <data name="Error_UploadFailed" xml:space="preserve"><value>Upload fehlgeschlagen</value></data>
-  <data name="Error_InvalidCredentials" xml:space="preserve"><value>Ungültige Anmeldedaten</value></data>
-  <data name="Error_PasswordMismatch" xml:space="preserve"><value>Passwörter stimmen nicht überein</value></data>
-  <data name="Error_EmailTaken" xml:space="preserve"><value>E-Mail-Adresse bereits vergeben</value></data>
-  <data name="Error_UsernameTaken" xml:space="preserve"><value>Benutzername bereits vergeben</value></data>
-
-  <!-- Update banner -->
-  <data name="Update_Available" xml:space="preserve"><value>🆕 Update verfügbar: v{0}</value></data>
-  <data name="Update_DownloadNow" xml:space="preserve"><value>Jetzt herunterladen</value></data>
-  <data name="Update_Later" xml:space="preserve"><value>Später</value></data>
+  <data name="Settings_Title.Text" xml:space="preserve"><value>Einstellungen</value></data>
+  <data name="Settings_AccountHeader.Text" xml:space="preserve"><value>ACCOUNT</value></data>
+  <data name="Settings_LogoutButton.Content" xml:space="preserve"><value>Ausloggen</value></data>
+  <data name="Settings_LanguageAppLabel.Text" xml:space="preserve"><value>Sprache der App</value></data>
+  <data name="Settings_LanguageHint.Text" xml:space="preserve"><value>Sprachänderung wird nach Neustart der App aktiv.</value></data>
+  <data name="Settings_VersionUpdateHeader.Text" xml:space="preserve"><value>VERSION &amp; UPDATE</value></data>
+  <data name="Settings_CheckUpdateButton.Content" xml:space="preserve"><value>Auf Updates prüfen</value></data>
+  <data name="Settings_DownloadButton.Content" xml:space="preserve"><value>Herunterladen</value></data>
+  <data name="Settings_UpToDateText.Text" xml:space="preserve"><value>✓ Du nutzt die neueste Version</value></data>
+  <data name="Settings_LinksHeader.Text" xml:space="preserve"><value>LINKS</value></data>
+  <data name="Settings_LinkOpenSite.Content" xml:space="preserve"><value>🌐  wolffiles.eu öffnen</value></data>
+  <data name="Settings_LinkBugReport.Content" xml:space="preserve"><value>🐛  Bug melden / Feedback</value></data>
+  <data name="Settings_LinkGitHub.Content" xml:space="preserve"><value>📦  GitHub Releases</value></data>
 </root>

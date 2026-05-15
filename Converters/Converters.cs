@@ -2,6 +2,7 @@ using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using WolffilesUploader.Models;
 
 namespace WolffilesUploader.Converters;
@@ -94,6 +95,32 @@ public class BoolToForegroundConverter : IValueConverter
         => value is true
             ? new SolidColorBrush(Windows.UI.Color.FromArgb(255, 200, 168, 75))  // gold for parent
             : new SolidColorBrush(Windows.UI.Color.FromArgb(255, 232, 232, 240)); // white for child
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+        => throw new NotImplementedException();
+}
+
+public class PathToImageSourceConverter : IValueConverter
+{
+    public object? Convert(object value, Type targetType, object parameter, string language)
+    {
+        if (value is not string path || string.IsNullOrEmpty(path)) return null;
+        try { return new BitmapImage(new Uri(path)); }
+        catch { return null; }
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+        => throw new NotImplementedException();
+}
+
+public class TagValueToLabelConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, string language)
+    {
+        if (value is not string s || s.Length == 0) return "";
+        var parts = s.Split('_');
+        for (int i = 0; i < parts.Length; i++)
+            parts[i] = parts[i].Length > 0 ? char.ToUpperInvariant(parts[i][0]) + parts[i][1..] : parts[i];
+        return string.Join(' ', parts);
+    }
     public object ConvertBack(object value, Type targetType, object parameter, string language)
         => throw new NotImplementedException();
 }
