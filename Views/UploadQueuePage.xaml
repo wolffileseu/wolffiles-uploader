@@ -152,15 +152,42 @@
                                         </Border>
                                     </Grid>
 
-                                    <!-- Progress bar -->
+                                    <!-- Progress bar + phase status + per-item cancel -->
                                     <StackPanel Visibility="{x:Bind Status, Converter={StaticResource StatusToUploadingVisibilityConverter}, Mode=OneWay}"
                                                 Spacing="3">
                                         <ProgressBar Value="{x:Bind Progress, Mode=OneWay}"
                                                      Maximum="100" Height="3"
                                                      Foreground="{StaticResource AccentGoldBrush}" />
-                                        <TextBlock Text="{x:Bind SpeedDisplay, Mode=OneWay}"
-                                                   FontSize="10" FontFamily="Consolas"
-                                                   Foreground="#424860" />
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"
+                                                       Text="{x:Bind StatusMessage, Mode=OneWay}"
+                                                       FontSize="10" FontFamily="Consolas"
+                                                       Foreground="{StaticResource TextSecondaryBrush}"
+                                                       VerticalAlignment="Center" />
+                                            <TextBlock Grid.Column="1"
+                                                       Text="{x:Bind SpeedDisplay, Mode=OneWay}"
+                                                       Margin="8,0,8,0"
+                                                       FontSize="10" FontFamily="Consolas"
+                                                       Foreground="#424860"
+                                                       VerticalAlignment="Center" />
+                                            <Button Grid.Column="2"
+                                                    Content="✕"
+                                                    Click="CancelItem_Click"
+                                                    ToolTipService.ToolTip="Cancel"
+                                                    Width="22" Height="22"
+                                                    MinWidth="0" MinHeight="0"
+                                                    Padding="0"
+                                                    FontSize="10"
+                                                    Background="Transparent"
+                                                    BorderBrush="{StaticResource AccentGoldBrush}"
+                                                    BorderThickness="1"
+                                                    Foreground="{StaticResource AccentGoldBrush}" />
+                                        </Grid>
                                     </StackPanel>
 
                                     <!-- Error -->

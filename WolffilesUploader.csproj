@@ -15,7 +15,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <SelfContained>false</SelfContained>
-    <Version>1.1.0</Version>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

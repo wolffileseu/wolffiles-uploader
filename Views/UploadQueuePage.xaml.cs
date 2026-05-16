@@ -142,6 +142,13 @@ public sealed partial class UploadQueuePage : Page
         item?.ScreenshotPaths.Remove(path);
     }
 
+    private void CancelItem_Click(object sender, RoutedEventArgs e)
+    {
+        var item = FindUploadItem(sender as DependencyObject);
+        if (item == null) return;
+        ViewModel.CancelItemCommand.Execute(item);
+    }
+
     // Category ComboBox handler - called from XAML via Tag
     private void CategoryCombo_Loaded(object sender, RoutedEventArgs e)
     {

@@ -39,6 +39,7 @@ public class StatusToStringConverter : IValueConverter
             UploadStatus.Uploading => "LÄUFT",
             UploadStatus.Done      => "FERTIG",
             UploadStatus.Error     => "FEHLER",
+            UploadStatus.Cancelled => "ABGEBROCHEN",
             _                      => "WARTEND"
         } : "";
     public object ConvertBack(object value, Type targetType, object parameter, string language)

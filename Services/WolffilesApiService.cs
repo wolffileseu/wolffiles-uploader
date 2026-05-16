@@ -9,6 +9,7 @@ namespace WolffilesUploader.Services;
 public class WolffilesApiService
 {
     private readonly HttpClient _http;
+    private readonly MultipartUploadService _multipart;
     private const string BaseUrl = "https://wolffiles.eu/api/v1";
     private static string? _token; // static = immer verfügbar
 
@@ -18,9 +19,10 @@ public class WolffilesApiService
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
 
-    public WolffilesApiService(HttpClient http)
+    public WolffilesApiService(HttpClient http, MultipartUploadService multipart)
     {
         _http = http;
+        _multipart = multipart;
         _http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         _http.Timeout = TimeSpan.FromSeconds(300);
 
@@ -43,6 +45,10 @@ public class WolffilesApiService
     }
 
     public bool IsAuthenticated => !string.IsNullOrEmpty(_token);
+
+    // Read-only static accessor so peer services (e.g. MultipartUploadService)
+    // can attach the same bearer token to their own HttpClient instances.
+    public static string? CurrentToken => _token;
 
     // ── AUTH ─────────────────────────────────────────────────────────────────
 
@@ -149,22 +155,27 @@ public class WolffilesApiService
 
     public async Task<UploadResult> UploadFileAsync(
         UploadItem item,
-        IProgress<double>? progress = null,
+        IProgress<MultipartUploadProgress>? progress = null,
         CancellationToken cancellationToken = default)
     {
-        // Debug: log token
-        var authHeader = _http.DefaultRequestHeaders.Authorization;
-        System.Diagnostics.Debug.WriteLine($"[Upload] Auth header: {authHeader?.Scheme} {authHeader?.Parameter?[..Math.Min(20, authHeader?.Parameter?.Length ?? 0)]}...");
-        System.Diagnostics.Debug.WriteLine($"[Upload] IsAuthenticated: {IsAuthenticated}");
+        // 1. Stream the file through the S3 multipart pipeline (bypasses Cloudflare 100 MB limit).
+        var s3 = await _multipart.UploadAsync(item.FilePath, progress, cancellationToken);
+
+        // 2. Signal Finalizing while we POST the metadata.
+        progress?.Report(new MultipartUploadProgress(MultipartUploadPhase.Finalizing, s3.Size, s3.Size));
+
         using var form = new MultipartFormDataContent();
 
-        // File
-        var fileBytes = await File.ReadAllBytesAsync(item.FilePath, cancellationToken);
-        var fileContent = new ByteArrayContent(fileBytes);
-        fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-        form.Add(fileContent, "file", item.FileName);
+        // Multipart-uploaded file → reference by S3 key
+        form.Add(new StringContent(s3.Key), "file_s3_key");
+        form.Add(new StringContent(item.FileName), "file_filename");
+        form.Add(new StringContent(s3.Size.ToString(System.Globalization.CultureInfo.InvariantCulture)), "file_size");
+        if (!string.IsNullOrEmpty(s3.Hash))
+            form.Add(new StringContent(s3.Hash), "file_hash");
+        if (!string.IsNullOrEmpty(s3.ContentType))
+            form.Add(new StringContent(s3.ContentType), "file_content_type");
 
-        // Metadata
+        // Metadata (same fields as the classic path)
         form.Add(new StringContent(item.Title), "title");
         form.Add(new StringContent(item.Description ?? ""), "description");
         form.Add(new StringContent(item.CategoryId.ToString()), "category_id");
@@ -172,13 +183,13 @@ public class WolffilesApiService
         if (!string.IsNullOrEmpty(item.Version))
             form.Add(new StringContent(item.Version), "version");
         if (!string.IsNullOrEmpty(item.Author))
-            form.Add(new StringContent(item.Author), "author");
+            form.Add(new StringContent(item.Author), "original_author");
 
         // Tags
         foreach (var tag in item.Tags)
             form.Add(new StringContent(tag), "tags[]");
 
-        // Screenshots (multi, max 10)
+        // Screenshots stay classic (small files, no need for multipart)
         foreach (var path in item.ScreenshotPaths)
         {
             if (string.IsNullOrEmpty(path) || !File.Exists(path)) continue;
@@ -196,11 +207,20 @@ public class WolffilesApiService
             form.Add(content, "screenshots[]", Path.GetFileName(path));
         }
 
-        // Progress simulation (no real progress without wrapper, but shows activity)
-        progress?.Report(10);
         var resp = await _http.PostAsync($"{BaseUrl}/files", form, cancellationToken);
-        progress?.Report(100);
         var json = await resp.Content.ReadAsStringAsync(cancellationToken);
+
+        if (resp.StatusCode == System.Net.HttpStatusCode.Conflict)
+        {
+            var dup = JsonSerializer.Deserialize<DuplicateResponse>(json, JsonOpts);
+            return new UploadResult
+            {
+                Success = false,
+                IsDuplicate = true,
+                DuplicateTitle = dup?.Existing?.Title,
+                Error = dup?.Message ?? "Duplicate"
+            };
+        }
 
         if (!resp.IsSuccessStatusCode)
         {
@@ -208,12 +228,14 @@ public class WolffilesApiService
             return new UploadResult { Success = false, Error = err?.Message ?? $"HTTP {(int)resp.StatusCode}" };
         }
 
-        var result = JsonSerializer.Deserialize<DataWrapper<UploadFileResponse>>(json, JsonOpts);
+        // Server response shape: { success, file: { id, slug, title, status } }
+        var ok = JsonSerializer.Deserialize<StoreSuccessResponse>(json, JsonOpts);
+        progress?.Report(new MultipartUploadProgress(MultipartUploadPhase.Done, s3.Size, s3.Size));
         return new UploadResult
         {
             Success = true,
-            FileId = result?.Data?.Id ?? 0,
-            Url = result?.Data?.Url ?? ""
+            FileId = ok?.File?.Id ?? 0,
+            Url = ok?.File?.Slug != null ? $"https://wolffiles.eu/files/{ok.File.Slug}" : ""
         };
     }
 
@@ -245,6 +267,8 @@ public record UploadResult
     public int FileId { get; init; }
     public string? Url { get; init; }
     public string? Error { get; init; }
+    public bool IsDuplicate { get; init; }
+    public string? DuplicateTitle { get; init; }
 }
 
 file class LoginResponse
@@ -253,10 +277,32 @@ file class LoginResponse
     [JsonPropertyName("user")] public UserInfo? User { get; set; }
 }
 
-file class UploadFileResponse
+file class StoreSuccessResponse
+{
+    [JsonPropertyName("success")] public bool Success { get; set; }
+    [JsonPropertyName("file")] public StoreSuccessFile? File { get; set; }
+}
+
+file class StoreSuccessFile
 {
     [JsonPropertyName("id")] public int Id { get; set; }
-    [JsonPropertyName("url")] public string? Url { get; set; }
+    [JsonPropertyName("slug")] public string? Slug { get; set; }
+    [JsonPropertyName("title")] public string? Title { get; set; }
+    [JsonPropertyName("status")] public string? Status { get; set; }
+}
+
+file class DuplicateResponse
+{
+    [JsonPropertyName("error")] public string? Error { get; set; }
+    [JsonPropertyName("message")] public string? Message { get; set; }
+    [JsonPropertyName("existing")] public DuplicateExisting? Existing { get; set; }
+}
+
+file class DuplicateExisting
+{
+    [JsonPropertyName("id")] public int Id { get; set; }
+    [JsonPropertyName("title")] public string? Title { get; set; }
+    [JsonPropertyName("slug")] public string? Slug { get; set; }
 }
 
 file class ErrorResponse

@@ -23,6 +23,8 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddHttpClient<WolffilesApiService>();
+        services.AddHttpClient(); // registers IHttpClientFactory for MultipartUploadService
+        services.AddSingleton<MultipartUploadService>();
         services.AddSingleton<AuthService>();
         services.AddSingleton<UploadHistoryService>();
 

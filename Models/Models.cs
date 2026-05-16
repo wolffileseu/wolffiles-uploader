@@ -33,7 +33,8 @@ public enum UploadStatus
     Pending,
     Uploading,
     Done,
-    Error
+    Error,
+    Cancelled
 }
 
 public partial class UploadItem : ObservableObject
@@ -58,6 +59,7 @@ public partial class UploadItem : ObservableObject
     [ObservableProperty] private UploadStatus _status = UploadStatus.Pending;
     [ObservableProperty] private double _progress;
     [ObservableProperty] private string _speedDisplay = "";
+    [ObservableProperty] private string _statusMessage = "";
     [ObservableProperty] private string _errorMessage = "";
     [ObservableProperty] private string _customTagInput = "";
 

@@ -364,3 +364,9 @@ FodyWeavers.xsd
 # Local backup folders — don't ship to repo, don't include in build
 Strings.bak.*/
 *.bak.[0-9]*/
+
+# Claude Code local settings
+.claude/
+
+# Claude Code local settings
+.claude/

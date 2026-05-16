@@ -79,6 +79,13 @@ public static class Localization
         ["Settings_LinkOpenSite.Content"] = "🌐  wolffiles.eu öffnen",
         ["Settings_LinkBugReport.Content"] = "🐛  Bug melden / Feedback",
         ["Settings_LinkGitHub.Content"] = "📦  GitHub Releases",
+        ["Upload_Status_Hashing"] = "Datei wird analysiert...",
+        ["Upload_Status_Uploading"] = "Wird hochgeladen...",
+        ["Upload_Status_Processing"] = "Wird verarbeitet...",
+        ["Upload_Status_Finalizing"] = "Wird abgeschlossen...",
+        ["Upload_Status_Done"] = "Fertig",
+        ["Upload_Status_Cancelled"] = "Abgebrochen",
+        ["Upload_Error_Duplicate"] = "Diese Datei existiert bereits als '{0}'",
     };
 
     private static readonly Dictionary<string, string> en_US = new()
@@ -148,6 +155,13 @@ public static class Localization
         ["Settings_LinkOpenSite.Content"] = "🌐  Open wolffiles.eu",
         ["Settings_LinkBugReport.Content"] = "🐛  Report a bug / Feedback",
         ["Settings_LinkGitHub.Content"] = "📦  GitHub Releases",
+        ["Upload_Status_Hashing"] = "Computing hash...",
+        ["Upload_Status_Uploading"] = "Uploading...",
+        ["Upload_Status_Processing"] = "Processing...",
+        ["Upload_Status_Finalizing"] = "Finalizing...",
+        ["Upload_Status_Done"] = "Done",
+        ["Upload_Status_Cancelled"] = "Cancelled",
+        ["Upload_Error_Duplicate"] = "This file already exists as '{0}'",
     };
 
     private static readonly Dictionary<string, string> fr_FR = new()
@@ -217,6 +231,13 @@ public static class Localization
         ["Settings_LinkOpenSite.Content"] = "🌐  Ouvrir wolffiles.eu",
         ["Settings_LinkBugReport.Content"] = "🐛  Signaler un bug / Commentaires",
         ["Settings_LinkGitHub.Content"] = "📦  GitHub Releases",
+        ["Upload_Status_Hashing"] = "Calcul de l'empreinte...",
+        ["Upload_Status_Uploading"] = "Téléversement...",
+        ["Upload_Status_Processing"] = "Traitement...",
+        ["Upload_Status_Finalizing"] = "Finalisation...",
+        ["Upload_Status_Done"] = "Terminé",
+        ["Upload_Status_Cancelled"] = "Annulé",
+        ["Upload_Error_Duplicate"] = "Ce fichier existe déjà en tant que '{0}'",
     };
 
     private static readonly Dictionary<string, Dictionary<string, string>> All = new()
