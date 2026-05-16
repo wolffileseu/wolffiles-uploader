@@ -21,6 +21,18 @@ public sealed partial class LoginPage : Page
         ViewModel.LoginSucceeded += OnLoginSucceeded;
 
         VersionText.Text = $"uploader v{new UpdateCheckerService().CurrentVersion} · wolffiles.eu";
+
+        ApplyLocalization();
+    }
+
+    private void ApplyLocalization()
+    {
+        LoginEmailLabel.Text = LocalizationService.GetString("Login_EmailLabel.Text");
+        EmailBox.PlaceholderText = LocalizationService.GetString("Login_EmailInput.PlaceholderText");
+        LoginPasswordLabel.Text = LocalizationService.GetString("Login_PasswordLabel.Text");
+        LoginRememberCheckbox.Content = LocalizationService.GetString("Login_RememberCheckbox.Content");
+        LoginSubmitText.Text = LocalizationService.GetString("Login_SubmitText.Text");
+        LoginRegisterLink.Content = LocalizationService.GetString("Login_RegisterLink.Content");
     }
 
     private void OnLoginSucceeded(object? sender, EventArgs e)
@@ -41,8 +53,7 @@ public sealed partial class LoginPage : Page
         var xamlRoot = App.MainWindow?.Content?.XamlRoot;
         if (xamlRoot == null) return;
 
-        var loader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader();
-        var messageTemplate = loader.GetString("Update_Available_Message");
+        var messageTemplate = LocalizationService.GetString("Update_Available_Message");
         var headline = string.Format(messageTemplate, result.LatestVersion, updater.CurrentVersion);
 
         var contentPanel = new StackPanel { Spacing = 8 };
@@ -70,10 +81,10 @@ public sealed partial class LoginPage : Page
 
         var dialog = new ContentDialog
         {
-            Title = loader.GetString("Update_Available_Title"),
+            Title = LocalizationService.GetString("Update_Available_Title"),
             Content = contentPanel,
-            PrimaryButtonText = loader.GetString("Update_Download_Button"),
-            CloseButtonText = loader.GetString("Update_Later_Button"),
+            PrimaryButtonText = LocalizationService.GetString("Update_Download_Button"),
+            CloseButtonText = LocalizationService.GetString("Update_Later_Button"),
             DefaultButton = ContentDialogButton.Primary,
             XamlRoot = xamlRoot
         };

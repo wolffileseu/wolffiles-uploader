@@ -35,4 +35,19 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
   </ItemGroup>
+
+  <!--
+    PublishSingleFile bundles managed assemblies into the EXE but does not
+    carry resources.pri (or Microsoft.UI.Xaml.Controls.pri) into the publish
+    folder. Unpackaged WinUI 3 needs these next to the EXE so the ResourceManager
+    can find .resw strings and the default control styles at runtime.
+  -->
+  <Target Name="CopyPriToPublish" AfterTargets="Publish">
+    <ItemGroup>
+      <_PriFiles Include="$(OutDir)*.pri" />
+    </ItemGroup>
+    <Copy SourceFiles="@(_PriFiles)"
+          DestinationFolder="$(PublishDir)"
+          SkipUnchangedFiles="true" />
+  </Target>
 </Project>

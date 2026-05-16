@@ -19,7 +19,7 @@
                 Padding="20,12">
             <Grid>
                 <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
-                    <TextBlock x:Uid="Queue_Title"
+                    <TextBlock x:Name="QueueTitle"
                                FontSize="16" FontWeight="SemiBold"
                                Foreground="{StaticResource TextPrimaryBrush}" />
                     <Border Background="{StaticResource BgElevatedBrush}"
@@ -31,13 +31,13 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Spacing="8"
                             HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button x:Uid="Queue_ClearDoneButton"
+                    <Button x:Name="QueueClearDoneButton"
                             Command="{x:Bind ViewModel.ClearQueueCommand}" />
                     <Button Command="{x:Bind ViewModel.UploadAllCommand}"
                             Style="{StaticResource AccentButtonStyle}">
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <TextBlock Text="⬆" />
-                            <TextBlock x:Uid="Queue_UploadAllText" />
+                            <TextBlock x:Name="QueueUploadAllText" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -56,11 +56,11 @@
                         Drop="DropZone_Drop">
                     <StackPanel HorizontalAlignment="Center" Spacing="6">
                         <TextBlock Text="📦" FontSize="30" HorizontalAlignment="Center" Opacity="0.5" />
-                        <TextBlock x:Uid="Queue_DropHint"
+                        <TextBlock x:Name="QueueDropHint"
                                    FontSize="14" FontWeight="SemiBold"
                                    Foreground="{StaticResource TextSecondaryBrush}"
                                    HorizontalAlignment="Center" />
-                        <TextBlock x:Uid="Queue_DropSub"
+                        <TextBlock x:Name="QueueDropSub"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="#424860" HorizontalAlignment="Center" />
                         <StackPanel Orientation="Horizontal" Spacing="6"
@@ -81,7 +81,7 @@
                                            Foreground="{StaticResource AccentGoldBrush}" />
                             </Border>
                         </StackPanel>
-                        <Button x:Uid="Queue_BrowseButton"
+                        <Button x:Name="QueueBrowseButton"
                                 HorizontalAlignment="Center"
                                 Margin="0,8,0,0"
                                 Click="BrowseFiles_Click" />
@@ -185,19 +185,19 @@
 
                                         <!-- Titel -->
                                         <StackPanel Grid.Row="0" Grid.Column="0" Spacing="4">
-                                            <TextBlock x:Uid="Field_TitleLabel"
+                                            <TextBlock Tag="Field_TitleLabel.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
-                                            <TextBox x:Uid="Field_TitleInput"
+                                            <TextBox Tag="Field_TitleInput.PlaceholderText" Loaded="Localize_Loaded"
                                                      Text="{x:Bind Title, Mode=TwoWay}" />
                                         </StackPanel>
 
                                         <!-- Kategorie -->
                                         <StackPanel Grid.Row="0" Grid.Column="1" Spacing="4">
-                                            <TextBlock x:Uid="Field_CategoryLabel"
+                                            <TextBlock Tag="Field_CategoryLabel.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
-                                            <ComboBox x:Uid="Field_CategoryInput"
+                                            <ComboBox Tag="Field_CategoryInput.PlaceholderText"
                                                       HorizontalAlignment="Stretch"
                                                       Loaded="CategoryCombo_Loaded"
                                                       SelectionChanged="CategoryCombo_SelectionChanged">
@@ -213,13 +213,13 @@
 
                                         <!-- Game -->
                                         <StackPanel Grid.Row="0" Grid.Column="2" Spacing="4">
-                                            <TextBlock x:Uid="Field_GameLabel"
+                                            <TextBlock Tag="Field_GameLabel.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <ComboBox HorizontalAlignment="Stretch"
                                                       SelectedValue="{x:Bind Game, Mode=TwoWay}"
                                                       SelectedValuePath="Tag">
-                                                <ComboBoxItem x:Uid="Field_GameAuto" Tag="auto" />
+                                                <ComboBoxItem Tag="auto" Loaded="GameAutoItem_Loaded" />
                                                 <ComboBoxItem Content="Enemy Territory" Tag="et" />
                                                 <ComboBoxItem Content="Return to Castle Wolfenstein" Tag="rtcw" />
                                             </ComboBox>
@@ -227,30 +227,30 @@
 
                                         <!-- Version -->
                                         <StackPanel Grid.Row="1" Grid.Column="0" Spacing="4">
-                                            <TextBlock x:Uid="Field_VersionLabel"
+                                            <TextBlock Tag="Field_VersionLabel.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
-                                            <TextBox x:Uid="Field_VersionInput"
+                                            <TextBox Tag="Field_VersionInput.PlaceholderText" Loaded="Localize_Loaded"
                                                      Text="{x:Bind Version, Mode=TwoWay}" />
                                         </StackPanel>
 
                                         <!-- Original Author -->
                                         <StackPanel Grid.Row="1" Grid.Column="1"
                                                     Grid.ColumnSpan="2" Spacing="4">
-                                            <TextBlock x:Uid="Field_AuthorLabel"
+                                            <TextBlock Tag="Field_AuthorLabel.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
-                                            <TextBox x:Uid="Field_AuthorInput"
+                                            <TextBox Tag="Field_AuthorInput.PlaceholderText" Loaded="Localize_Loaded"
                                                      Text="{x:Bind Author, Mode=TwoWay}" />
                                         </StackPanel>
 
                                         <!-- Beschreibung -->
                                         <StackPanel Grid.Row="2" Grid.Column="0"
                                                     Grid.ColumnSpan="3" Spacing="4">
-                                            <TextBlock x:Uid="Field_DescriptionLabel"
+                                            <TextBlock Tag="Field_DescriptionLabel.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
-                                            <TextBox x:Uid="Field_DescriptionInput"
+                                            <TextBox Tag="Field_DescriptionInput.PlaceholderText" Loaded="Localize_Loaded"
                                                      Text="{x:Bind Description, Mode=TwoWay}"
                                                      AcceptsReturn="True"
                                                      TextWrapping="Wrap"
@@ -260,7 +260,7 @@
                                         <!-- Screenshots (multi, max 10) -->
                                         <StackPanel Grid.Row="3" Grid.Column="0"
                                                     Grid.ColumnSpan="3" Spacing="6">
-                                            <TextBlock x:Uid="Field_ScreenshotsLabel"
+                                            <TextBlock Tag="Field_ScreenshotsLabel.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <Grid ColumnSpacing="8">
@@ -268,7 +268,7 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
-                                                <Button x:Uid="Field_ChooseImagesButton"
+                                                <Button Tag="Field_ChooseImagesButton.Content" Loaded="Localize_Loaded"
                                                         Grid.Column="0"
                                                         Click="ChooseScreenshots_Click"
                                                         IsEnabled="{x:Bind CanAddMoreScreenshots, Mode=OneWay}" />
@@ -323,7 +323,7 @@
                                     <!-- Tag Groups -->
                                     <StackPanel Spacing="10">
                                         <StackPanel Spacing="4">
-                                            <TextBlock x:Uid="Tag_Group_MapType"
+                                            <TextBlock Tag="Tag_Group_MapType.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <ItemsControl ItemsSource="{x:Bind MapTypeTags}">
@@ -345,7 +345,7 @@
                                         </StackPanel>
 
                                         <StackPanel Spacing="4">
-                                            <TextBlock x:Uid="Tag_Group_Style"
+                                            <TextBlock Tag="Tag_Group_Style.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <ItemsControl ItemsSource="{x:Bind StyleTags}">
@@ -367,7 +367,7 @@
                                         </StackPanel>
 
                                         <StackPanel Spacing="4">
-                                            <TextBlock x:Uid="Tag_Group_Size"
+                                            <TextBlock Tag="Tag_Group_Size.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <ItemsControl ItemsSource="{x:Bind SizeTags}">
@@ -389,7 +389,7 @@
                                         </StackPanel>
 
                                         <StackPanel Spacing="4">
-                                            <TextBlock x:Uid="Tag_Group_Theme"
+                                            <TextBlock Tag="Tag_Group_Theme.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <ItemsControl ItemsSource="{x:Bind ThemeTags}">
@@ -411,7 +411,7 @@
                                         </StackPanel>
 
                                         <StackPanel Spacing="4">
-                                            <TextBlock x:Uid="Tag_Group_Quality"
+                                            <TextBlock Tag="Tag_Group_Quality.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <ItemsControl ItemsSource="{x:Bind QualityTags}">
@@ -434,7 +434,7 @@
 
                                         <!-- Custom tag input -->
                                         <StackPanel Spacing="4">
-                                            <TextBlock x:Uid="Tag_Group_Custom"
+                                            <TextBlock Tag="Tag_Group_Custom.Text" Loaded="Localize_Loaded"
                                                        FontSize="10" FontFamily="Consolas"
                                                        Foreground="#424860" CharacterSpacing="80" />
                                             <Grid ColumnSpacing="8">
@@ -442,10 +442,10 @@
                                                     <ColumnDefinition Width="*" />
                                                     <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
-                                                <TextBox x:Uid="Tag_CustomInput"
+                                                <TextBox Tag="Tag_CustomInput.PlaceholderText" Loaded="Localize_Loaded"
                                                          Grid.Column="0"
                                                          Text="{x:Bind CustomTagInput, Mode=TwoWay}" />
-                                                <Button x:Uid="Tag_AddButton"
+                                                <Button Tag="Tag_AddButton.Content" Loaded="Localize_Loaded"
                                                         Grid.Column="1"
                                                         Click="AddCustomTag_Click" />
                                             </Grid>

@@ -43,7 +43,7 @@
 
         <!-- Nav items -->
         <NavigationView.MenuItems>
-            <NavigationViewItem x:Uid="Nav_Queue" Tag="queue" Icon="Upload">
+            <NavigationViewItem x:Name="NavQueueItem" Tag="queue" Icon="Upload">
                 <NavigationViewItem.InfoBadge>
                     <InfoBadge x:Name="QueueBadge"
                                Value="0"
@@ -51,13 +51,13 @@
                                Visibility="Collapsed" />
                 </NavigationViewItem.InfoBadge>
             </NavigationViewItem>
-            <NavigationViewItem x:Uid="Nav_History" Tag="history" Icon="Clock" />
+            <NavigationViewItem x:Name="NavHistoryItem" Tag="history" Icon="Clock" />
         </NavigationView.MenuItems>
 
         <!-- Footer -->
         <NavigationView.FooterMenuItems>
-            <NavigationViewItem x:Uid="Nav_Settings" Tag="settings" Icon="Setting" />
-            <NavigationViewItem x:Uid="Nav_Logout" Tag="logout" Icon="LeaveChat" />
+            <NavigationViewItem x:Name="NavSettingsItem" Tag="settings" Icon="Setting" />
+            <NavigationViewItem x:Name="NavLogoutItem" Tag="logout" Icon="LeaveChat" />
         </NavigationView.FooterMenuItems>
 
         <!-- Content frame -->

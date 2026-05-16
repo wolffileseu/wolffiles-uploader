@@ -50,6 +50,10 @@ public partial class App : Application
         }
         catch { /* silently fall back to system default */ }
 
+        // Resolve .resw via an explicit ResourceContext — x:Uid alone does not
+        // honor PrimaryLanguageOverride in unpackaged WinUI 3 builds.
+        LocalizationService.Initialize();
+
         MainWindow = new MainWindow();
         MainWindow.Activate();
 

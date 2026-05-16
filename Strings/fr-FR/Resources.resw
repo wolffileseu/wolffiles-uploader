@@ -1,83 +1,315 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- ResourceLoader-accessed (bare keys — referenced from C# code, do not rename) -->
-  <data name="Settings_LanguageRestartTitle" xml:space="preserve"><value>Changer de langue</value></data>
-  <data name="Settings_LanguageRestartMessage" xml:space="preserve"><value>L'application doit redémarrer pour appliquer le changement de langue.</value></data>
-  <data name="Settings_RestartNow" xml:space="preserve"><value>Redémarrer maintenant</value></data>
-  <data name="Settings_Later" xml:space="preserve"><value>Plus tard</value></data>
-  <data name="Update_Available_Title" xml:space="preserve"><value>Mise à jour disponible</value></data>
-  <data name="Update_Available_Message" xml:space="preserve"><value>Une nouvelle version (v{0}) est disponible. Vous utilisez actuellement v{1}.</value></data>
-  <data name="Update_Download_Button" xml:space="preserve"><value>Télécharger</value></data>
-  <data name="Update_Later_Button" xml:space="preserve"><value>Plus tard</value></data>
+  <!--
+    Microsoft ResX Schema
 
-  <!-- Login -->
-  <data name="Login_EmailLabel.Text" xml:space="preserve"><value>E-MAIL / NOM D'UTILISATEUR</value></data>
-  <data name="Login_EmailInput.PlaceholderText" xml:space="preserve"><value>vous@email.com</value></data>
-  <data name="Login_PasswordLabel.Text" xml:space="preserve"><value>MOT DE PASSE</value></data>
-  <data name="Login_RememberCheckbox.Content" xml:space="preserve"><value>Rester connecté</value></data>
-  <data name="Login_SubmitText.Text" xml:space="preserve"><value>SE CONNECTER</value></data>
-  <data name="Login_RegisterLink.Content" xml:space="preserve"><value>Pas encore de compte ? → wolffiles.eu/register</value></data>
+    Version 2.0
 
-  <!-- Navigation -->
-  <data name="Nav_Queue.Content" xml:space="preserve"><value>File d'upload</value></data>
-  <data name="Nav_History.Content" xml:space="preserve"><value>Historique</value></data>
-  <data name="Nav_Settings.Content" xml:space="preserve"><value>Paramètres</value></data>
-  <data name="Nav_Logout.Content" xml:space="preserve"><value>Se déconnecter</value></data>
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
 
-  <!-- Upload Queue -->
-  <data name="Queue_Title.Text" xml:space="preserve"><value>File d'upload</value></data>
-  <data name="Queue_ClearDoneButton.Content" xml:space="preserve"><value>✕ Supprimer les terminés</value></data>
-  <data name="Queue_UploadAllText.Text" xml:space="preserve"><value>Tout envoyer</value></data>
-  <data name="Queue_DropHint.Text" xml:space="preserve"><value>Déposer des fichiers ici ou cliquer</value></data>
-  <data name="Queue_DropSub.Text" xml:space="preserve"><value>Plusieurs fichiers à la fois</value></data>
-  <data name="Queue_BrowseButton.Content" xml:space="preserve"><value>Choisir des fichiers</value></data>
+    Example:
 
-  <!-- Form labels + inputs -->
-  <data name="Field_TitleLabel.Text" xml:space="preserve"><value>TITRE</value></data>
-  <data name="Field_TitleInput.PlaceholderText" xml:space="preserve"><value>Titre du fichier...</value></data>
-  <data name="Field_CategoryLabel.Text" xml:space="preserve"><value>CATÉGORIE</value></data>
-  <data name="Field_CategoryInput.PlaceholderText" xml:space="preserve"><value>Sélectionner...</value></data>
-  <data name="Field_GameLabel.Text" xml:space="preserve"><value>JEU</value></data>
-  <data name="Field_GameAuto.Content" xml:space="preserve"><value>Détection auto</value></data>
-  <data name="Field_VersionLabel.Text" xml:space="preserve"><value>VERSION</value></data>
-  <data name="Field_VersionInput.PlaceholderText" xml:space="preserve"><value>p.ex. 1.0, final, beta2</value></data>
-  <data name="Field_AuthorLabel.Text" xml:space="preserve"><value>AUTEUR ORIGINAL</value></data>
-  <data name="Field_AuthorInput.PlaceholderText" xml:space="preserve"><value>Créateur de map/mod</value></data>
-  <data name="Field_DescriptionLabel.Text" xml:space="preserve"><value>DESCRIPTION</value></data>
-  <data name="Field_DescriptionInput.PlaceholderText" xml:space="preserve"><value>Courte description...</value></data>
-  <data name="Field_ScreenshotsLabel.Text" xml:space="preserve"><value>CAPTURES D'ÉCRAN (OPTIONNEL, MAX 10)</value></data>
-  <data name="Field_ChooseImagesButton.Content" xml:space="preserve"><value>Choisir des images</value></data>
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+      <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+      <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+      <comment>This is a comment</comment>
+    </data>
 
-  <!-- Tag groups -->
-  <data name="Tag_Group_MapType.Text" xml:space="preserve"><value>TYPE DE MAP</value></data>
-  <data name="Tag_Group_Style.Text" xml:space="preserve"><value>STYLE</value></data>
-  <data name="Tag_Group_Size.Text" xml:space="preserve"><value>TAILLE</value></data>
-  <data name="Tag_Group_Theme.Text" xml:space="preserve"><value>THÈME</value></data>
-  <data name="Tag_Group_Quality.Text" xml:space="preserve"><value>QUALITÉ</value></data>
-  <data name="Tag_Group_Custom.Text" xml:space="preserve"><value>TAGS PERSONNALISÉS</value></data>
-  <data name="Tag_CustomInput.PlaceholderText" xml:space="preserve"><value>Tag personnalisé...</value></data>
-  <data name="Tag_AddButton.Content" xml:space="preserve"><value>Ajouter</value></data>
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
 
-  <!-- History -->
-  <data name="History_Title.Text" xml:space="preserve"><value>Historique des uploads</value></data>
-  <data name="History_ClearButton.Content" xml:space="preserve"><value>🗑 Vider l'historique</value></data>
-  <data name="History_TotalUploadsLabel.Text" xml:space="preserve"><value>TOTAL UPLOADS</value></data>
-  <data name="History_UploadedLabel.Text" xml:space="preserve"><value>ENVOYÉ</value></data>
-  <data name="History_SuccessfulLabel.Text" xml:space="preserve"><value>RÉUSSIS</value></data>
-  <data name="History_Empty.Text" xml:space="preserve"><value>Aucun upload pour l'instant</value></data>
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
 
-  <!-- Settings -->
-  <data name="Settings_Title.Text" xml:space="preserve"><value>Paramètres</value></data>
-  <data name="Settings_AccountHeader.Text" xml:space="preserve"><value>COMPTE</value></data>
-  <data name="Settings_LogoutButton.Content" xml:space="preserve"><value>Se déconnecter</value></data>
-  <data name="Settings_LanguageAppLabel.Text" xml:space="preserve"><value>Langue de l'application</value></data>
-  <data name="Settings_LanguageHint.Text" xml:space="preserve"><value>Le changement de langue s'applique après redémarrage de l'application.</value></data>
-  <data name="Settings_VersionUpdateHeader.Text" xml:space="preserve"><value>VERSION &amp; MISE À JOUR</value></data>
-  <data name="Settings_CheckUpdateButton.Content" xml:space="preserve"><value>Vérifier les mises à jour</value></data>
-  <data name="Settings_DownloadButton.Content" xml:space="preserve"><value>Télécharger</value></data>
-  <data name="Settings_UpToDateText.Text" xml:space="preserve"><value>✓ Vous avez la dernière version</value></data>
-  <data name="Settings_LinksHeader.Text" xml:space="preserve"><value>LIENS</value></data>
-  <data name="Settings_LinkOpenSite.Content" xml:space="preserve"><value>🌐  Ouvrir wolffiles.eu</value></data>
-  <data name="Settings_LinkBugReport.Content" xml:space="preserve"><value>🐛  Signaler un bug / Commentaires</value></data>
-  <data name="Settings_LinkGitHub.Content" xml:space="preserve"><value>📦  GitHub Releases</value></data>
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Settings_LanguageRestartTitle" xml:space="preserve">
+    <value>Changer de langue</value>
+  </data>
+  <data name="Settings_LanguageRestartMessage" xml:space="preserve">
+    <value>L&apos;application doit redémarrer pour appliquer le changement de langue.</value>
+  </data>
+  <data name="Settings_RestartNow" xml:space="preserve">
+    <value>Redémarrer maintenant</value>
+  </data>
+  <data name="Settings_Later" xml:space="preserve">
+    <value>Plus tard</value>
+  </data>
+  <data name="Update_Available_Title" xml:space="preserve">
+    <value>Mise à jour disponible</value>
+  </data>
+  <data name="Update_Available_Message" xml:space="preserve">
+    <value>Une nouvelle version (v{0}) est disponible. Vous utilisez actuellement v{1}.</value>
+  </data>
+  <data name="Update_Download_Button" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="Update_Later_Button" xml:space="preserve">
+    <value>Plus tard</value>
+  </data>
+  <data name="Login_EmailLabel.Text" xml:space="preserve">
+    <value>E-MAIL / NOM D&apos;UTILISATEUR</value>
+  </data>
+  <data name="Login_EmailInput.PlaceholderText" xml:space="preserve">
+    <value>vous@email.com</value>
+  </data>
+  <data name="Login_PasswordLabel.Text" xml:space="preserve">
+    <value>MOT DE PASSE</value>
+  </data>
+  <data name="Login_RememberCheckbox.Content" xml:space="preserve">
+    <value>Rester connecté</value>
+  </data>
+  <data name="Login_SubmitText.Text" xml:space="preserve">
+    <value>SE CONNECTER</value>
+  </data>
+  <data name="Login_RegisterLink.Content" xml:space="preserve">
+    <value>Pas encore de compte ? → wolffiles.eu/register</value>
+  </data>
+  <data name="Nav_Queue.Content" xml:space="preserve">
+    <value>File d&apos;upload</value>
+  </data>
+  <data name="Nav_History.Content" xml:space="preserve">
+    <value>Historique</value>
+  </data>
+  <data name="Nav_Settings.Content" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="Nav_Logout.Content" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="Queue_Title.Text" xml:space="preserve">
+    <value>File d&apos;upload</value>
+  </data>
+  <data name="Queue_ClearDoneButton.Content" xml:space="preserve">
+    <value>✕ Supprimer les terminés</value>
+  </data>
+  <data name="Queue_UploadAllText.Text" xml:space="preserve">
+    <value>Tout envoyer</value>
+  </data>
+  <data name="Queue_DropHint.Text" xml:space="preserve">
+    <value>Déposer des fichiers ici ou cliquer</value>
+  </data>
+  <data name="Queue_DropSub.Text" xml:space="preserve">
+    <value>Plusieurs fichiers à la fois</value>
+  </data>
+  <data name="Queue_BrowseButton.Content" xml:space="preserve">
+    <value>Choisir des fichiers</value>
+  </data>
+  <data name="Field_TitleLabel.Text" xml:space="preserve">
+    <value>TITRE</value>
+  </data>
+  <data name="Field_TitleInput.PlaceholderText" xml:space="preserve">
+    <value>Titre du fichier...</value>
+  </data>
+  <data name="Field_CategoryLabel.Text" xml:space="preserve">
+    <value>CATÉGORIE</value>
+  </data>
+  <data name="Field_CategoryInput.PlaceholderText" xml:space="preserve">
+    <value>Sélectionner...</value>
+  </data>
+  <data name="Field_GameLabel.Text" xml:space="preserve">
+    <value>JEU</value>
+  </data>
+  <data name="Field_GameAuto.Content" xml:space="preserve">
+    <value>Détection auto</value>
+  </data>
+  <data name="Field_VersionLabel.Text" xml:space="preserve">
+    <value>VERSION</value>
+  </data>
+  <data name="Field_VersionInput.PlaceholderText" xml:space="preserve">
+    <value>p.ex. 1.0, final, beta2</value>
+  </data>
+  <data name="Field_AuthorLabel.Text" xml:space="preserve">
+    <value>AUTEUR ORIGINAL</value>
+  </data>
+  <data name="Field_AuthorInput.PlaceholderText" xml:space="preserve">
+    <value>Créateur de map/mod</value>
+  </data>
+  <data name="Field_DescriptionLabel.Text" xml:space="preserve">
+    <value>DESCRIPTION</value>
+  </data>
+  <data name="Field_DescriptionInput.PlaceholderText" xml:space="preserve">
+    <value>Courte description...</value>
+  </data>
+  <data name="Field_ScreenshotsLabel.Text" xml:space="preserve">
+    <value>CAPTURES D&apos;ÉCRAN (OPTIONNEL, MAX 10)</value>
+  </data>
+  <data name="Field_ChooseImagesButton.Content" xml:space="preserve">
+    <value>Choisir des images</value>
+  </data>
+  <data name="Tag_Group_MapType.Text" xml:space="preserve">
+    <value>TYPE DE MAP</value>
+  </data>
+  <data name="Tag_Group_Style.Text" xml:space="preserve">
+    <value>STYLE</value>
+  </data>
+  <data name="Tag_Group_Size.Text" xml:space="preserve">
+    <value>TAILLE</value>
+  </data>
+  <data name="Tag_Group_Theme.Text" xml:space="preserve">
+    <value>THÈME</value>
+  </data>
+  <data name="Tag_Group_Quality.Text" xml:space="preserve">
+    <value>QUALITÉ</value>
+  </data>
+  <data name="Tag_Group_Custom.Text" xml:space="preserve">
+    <value>TAGS PERSONNALISÉS</value>
+  </data>
+  <data name="Tag_CustomInput.PlaceholderText" xml:space="preserve">
+    <value>Tag personnalisé...</value>
+  </data>
+  <data name="Tag_AddButton.Content" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="History_Title.Text" xml:space="preserve">
+    <value>Historique des uploads</value>
+  </data>
+  <data name="History_ClearButton.Content" xml:space="preserve">
+    <value>🗑 Vider l&apos;historique</value>
+  </data>
+  <data name="History_TotalUploadsLabel.Text" xml:space="preserve">
+    <value>TOTAL UPLOADS</value>
+  </data>
+  <data name="History_UploadedLabel.Text" xml:space="preserve">
+    <value>ENVOYÉ</value>
+  </data>
+  <data name="History_SuccessfulLabel.Text" xml:space="preserve">
+    <value>RÉUSSIS</value>
+  </data>
+  <data name="History_Empty.Text" xml:space="preserve">
+    <value>Aucun upload pour l&apos;instant</value>
+  </data>
+  <data name="Settings_Title.Text" xml:space="preserve">
+    <value>Paramètres</value>
+  </data>
+  <data name="Settings_AccountHeader.Text" xml:space="preserve">
+    <value>COMPTE</value>
+  </data>
+  <data name="Settings_LogoutButton.Content" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="Settings_LanguageAppLabel.Text" xml:space="preserve">
+    <value>Langue de l&apos;application</value>
+  </data>
+  <data name="Settings_LanguageHint.Text" xml:space="preserve">
+    <value>Le changement de langue s&apos;applique après redémarrage de l&apos;application.</value>
+  </data>
+  <data name="Settings_VersionUpdateHeader.Text" xml:space="preserve">
+    <value>VERSION &amp;amp; MISE À JOUR</value>
+  </data>
+  <data name="Settings_CheckUpdateButton.Content" xml:space="preserve">
+    <value>Vérifier les mises à jour</value>
+  </data>
+  <data name="Settings_DownloadButton.Content" xml:space="preserve">
+    <value>Télécharger</value>
+  </data>
+  <data name="Settings_UpToDateText.Text" xml:space="preserve">
+    <value>✓ Vous avez la dernière version</value>
+  </data>
+  <data name="Settings_LinksHeader.Text" xml:space="preserve">
+    <value>LIENS</value>
+  </data>
+  <data name="Settings_LinkOpenSite.Content" xml:space="preserve">
+    <value>🌐  Ouvrir wolffiles.eu</value>
+  </data>
+  <data name="Settings_LinkBugReport.Content" xml:space="preserve">
+    <value>🐛  Signaler un bug / Commentaires</value>
+  </data>
+  <data name="Settings_LinkGitHub.Content" xml:space="preserve">
+    <value>📦  GitHub Releases</value>
+  </data>
 </root>

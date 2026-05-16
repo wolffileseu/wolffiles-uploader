@@ -15,7 +15,10 @@
       "PowerShell(dotnet build *)",
       "Bash(grep -oE \"communitytoolkit[^\\\\\\\\\\\\\\\\]*\\\\\\\\\\\\\\\\[^\\\\\\\\\\\\\\\\]*\\\\\\\\\\\\\\\\lib\\\\\\\\\\\\\\\\[^\\\\\\\\\\\\\\\\]*\\\\\\\\\\\\\\\\[^\\\\\\\\\\\\\\\\\\\\\"]+\" \"C:\\\\Users\\\\wahke\\\\.claude\\\\projects\\\\C--Dev-wolffiles-uploader\\\\94b031ef-76a3-47f2-a4ac-6a08271bff52\\\\tool-results\\\\bwe4mz4ti.txt\")",
       "Bash(xxd)",
-      "Bash(grep -lE \"$\\(printf '\\\\xc3\\\\x83'\\)|$\\(printf '\\\\xc3\\\\xa2\\\\xe2\\\\x82\\\\xac'\\)|$\\(printf '\\\\xc3\\\\xb0\\\\xc5\\\\xb8'\\)\" C:\\\\\\\\Dev\\\\\\\\wolffiles-uploader\\\\\\\\Views\\\\\\\\*.xaml)"
+      "Bash(grep -lE \"$\\(printf '\\\\xc3\\\\x83'\\)|$\\(printf '\\\\xc3\\\\xa2\\\\xe2\\\\x82\\\\xac'\\)|$\\(printf '\\\\xc3\\\\xb0\\\\xc5\\\\xb8'\\)\" C:\\\\\\\\Dev\\\\\\\\wolffiles-uploader\\\\\\\\Views\\\\\\\\*.xaml)",
+      "PowerShell(dotnet publish *)",
+      "PowerShell(Get-ChildItem publish\\\\portable\\\\ | Where-Object { $_.Name -match 'pri|resw|resource' } | Format-Table Name, Length -AutoSize; \"---\"; \"Total items in publish:\"; \\(Get-ChildItem publish\\\\portable\\\\\\).Count)",
+      "PowerShell(Remove-Item *)"
     ]
   }
 }

@@ -38,19 +38,18 @@
 
                     <!-- Email -->
                     <StackPanel Spacing="6">
-                        <TextBlock x:Uid="Login_EmailLabel"
+                        <TextBlock x:Name="LoginEmailLabel"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="{StaticResource TextSecondaryBrush}"
                                    CharacterSpacing="80" />
                         <TextBox x:Name="EmailBox"
-                                 x:Uid="Login_EmailInput"
                                  Text="{x:Bind ViewModel.Email, Mode=TwoWay}"
                                  KeyDown="TextBox_KeyDown" />
                     </StackPanel>
 
                     <!-- Password -->
                     <StackPanel Spacing="6">
-                        <TextBlock x:Uid="Login_PasswordLabel"
+                        <TextBlock x:Name="LoginPasswordLabel"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="{StaticResource TextSecondaryBrush}"
                                    CharacterSpacing="80" />
@@ -61,7 +60,7 @@
                     </StackPanel>
 
                     <!-- Remember Me -->
-                    <CheckBox x:Uid="Login_RememberCheckbox"
+                    <CheckBox x:Name="LoginRememberCheckbox"
                               IsChecked="{x:Bind ViewModel.RememberMe, Mode=TwoWay}"
                               Foreground="{StaticResource TextSecondaryBrush}" />
 
@@ -71,7 +70,7 @@
                             Style="{StaticResource AccentButtonStyle}"
                             Margin="0,8,0,0">
                         <Grid>
-                            <TextBlock x:Uid="Login_SubmitText"
+                            <TextBlock x:Name="LoginSubmitText"
                                        FontWeight="SemiBold"
                                        FontFamily="Consolas"
                                        CharacterSpacing="120"
@@ -82,7 +81,7 @@
                     </Button>
 
                     <!-- Register hint -->
-                    <HyperlinkButton x:Uid="Login_RegisterLink"
+                    <HyperlinkButton x:Name="LoginRegisterLink"
                                      NavigateUri="https://wolffiles.eu/register"
                                      HorizontalAlignment="Center"
                                      FontSize="11"

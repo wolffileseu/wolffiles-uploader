@@ -17,9 +17,27 @@ public sealed partial class SettingsPage : Page
     public SettingsPage()
     {
         InitializeComponent();
+        ApplyLocalization();
         LoadUserInfo();
         LoadLanguage();
         LoadVersion();
+    }
+
+    private void ApplyLocalization()
+    {
+        SettingsTitle.Text = LocalizationService.GetString("Settings_Title.Text");
+        SettingsAccountHeader.Text = LocalizationService.GetString("Settings_AccountHeader.Text");
+        SettingsLogoutButton.Content = LocalizationService.GetString("Settings_LogoutButton.Content");
+        SettingsLanguageAppLabel.Text = LocalizationService.GetString("Settings_LanguageAppLabel.Text");
+        SettingsLanguageHint.Text = LocalizationService.GetString("Settings_LanguageHint.Text");
+        SettingsVersionUpdateHeader.Text = LocalizationService.GetString("Settings_VersionUpdateHeader.Text");
+        SettingsCheckUpdateButton.Content = LocalizationService.GetString("Settings_CheckUpdateButton.Content");
+        UpdateBtn.Content = LocalizationService.GetString("Settings_DownloadButton.Content");
+        UpToDateText.Text = LocalizationService.GetString("Settings_UpToDateText.Text");
+        SettingsLinksHeader.Text = LocalizationService.GetString("Settings_LinksHeader.Text");
+        SettingsLinkOpenSite.Content = LocalizationService.GetString("Settings_LinkOpenSite.Content");
+        SettingsLinkBugReport.Content = LocalizationService.GetString("Settings_LinkBugReport.Content");
+        SettingsLinkGitHub.Content = LocalizationService.GetString("Settings_LinkGitHub.Content");
     }
 
     private void LoadUserInfo()
@@ -82,13 +100,12 @@ public sealed partial class SettingsPage : Page
 
         ApplicationLanguage = tag;
 
-        var loader = new Microsoft.Windows.ApplicationModel.Resources.ResourceLoader();
         var dialog = new ContentDialog
         {
-            Title = loader.GetString("Settings_LanguageRestartTitle"),
-            Content = loader.GetString("Settings_LanguageRestartMessage"),
-            PrimaryButtonText = loader.GetString("Settings_RestartNow"),
-            CloseButtonText = loader.GetString("Settings_Later"),
+            Title = LocalizationService.GetString("Settings_LanguageRestartTitle"),
+            Content = LocalizationService.GetString("Settings_LanguageRestartMessage"),
+            PrimaryButtonText = LocalizationService.GetString("Settings_RestartNow"),
+            CloseButtonText = LocalizationService.GetString("Settings_Later"),
             DefaultButton = ContentDialogButton.Primary,
             XamlRoot = this.XamlRoot
         };

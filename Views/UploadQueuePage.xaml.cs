@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Controls.Primitives;
 using Microsoft.UI.Xaml.Media;
 using Windows.Storage.Pickers;
 using WolffilesUploader.Models;
+using WolffilesUploader.Services;
 using WolffilesUploader.ViewModels;
 using WinRT.Interop;
 
@@ -17,8 +18,50 @@ public sealed partial class UploadQueuePage : Page
     public UploadQueuePage()
     {
         InitializeComponent();
+        ApplyLocalization();
         ViewModel = App.Services.GetRequiredService<UploadQueueViewModel>();
         Loaded += async (s, e) => await ViewModel.InitAsync();
+    }
+
+    private void ApplyLocalization()
+    {
+        QueueTitle.Text = LocalizationService.GetString("Queue_Title.Text");
+        QueueClearDoneButton.Content = LocalizationService.GetString("Queue_ClearDoneButton.Content");
+        QueueUploadAllText.Text = LocalizationService.GetString("Queue_UploadAllText.Text");
+        QueueDropHint.Text = LocalizationService.GetString("Queue_DropHint.Text");
+        QueueDropSub.Text = LocalizationService.GetString("Queue_DropSub.Text");
+        QueueBrowseButton.Content = LocalizationService.GetString("Queue_BrowseButton.Content");
+    }
+
+    // Localizes elements inside the per-item DataTemplate, where x:Name is
+    // not reachable from page code-behind. The element's Tag carries the
+    // resource key (e.g. "Field_TitleLabel.Text"); the property assigned
+    // is inferred from the element type.
+    private void Localize_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement fe)
+            ApplyTagLocalization(fe);
+    }
+
+    private static void ApplyTagLocalization(FrameworkElement fe)
+    {
+        if (fe.Tag is not string key || key.Length == 0) return;
+        var value = LocalizationService.GetString(key);
+        switch (fe)
+        {
+            case TextBlock tb: tb.Text = value; break;
+            case TextBox txt: txt.PlaceholderText = value; break;
+            case ComboBox combo: combo.PlaceholderText = value; break;
+            case Button btn: btn.Content = value; break;
+        }
+    }
+
+    // Field_GameAuto's Tag is reserved for SelectedValuePath="Tag" ("auto"),
+    // so it can't carry the .resw key — set Content directly.
+    private void GameAutoItem_Loaded(object sender, RoutedEventArgs e)
+    {
+        if (sender is ComboBoxItem cbi)
+            cbi.Content = LocalizationService.GetString("Field_GameAuto.Content");
     }
 
     private void DropZone_DragOver(object sender, DragEventArgs e)
@@ -103,6 +146,9 @@ public sealed partial class UploadQueuePage : Page
     private void CategoryCombo_Loaded(object sender, RoutedEventArgs e)
     {
         if (sender is not ComboBox combo) return;
+
+        ApplyTagLocalization(combo);
+
         if (combo.DataContext is not UploadItem item) return;
         if (item.AvailableCategories.Count == 0) return;
 

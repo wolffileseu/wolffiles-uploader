@@ -12,9 +12,18 @@ public sealed partial class ShellPage : Page
     public ShellPage()
     {
         InitializeComponent();
+        ApplyLocalization();
         SetUserInfo();
         ContentFrame.Navigate(typeof(UploadQueuePage));
         NavView.SelectedItem = NavView.MenuItems[0];
+    }
+
+    private void ApplyLocalization()
+    {
+        NavQueueItem.Content = LocalizationService.GetString("Nav_Queue.Content");
+        NavHistoryItem.Content = LocalizationService.GetString("Nav_History.Content");
+        NavSettingsItem.Content = LocalizationService.GetString("Nav_Settings.Content");
+        NavLogoutItem.Content = LocalizationService.GetString("Nav_Logout.Content");
     }
 
     private void SetUserInfo()

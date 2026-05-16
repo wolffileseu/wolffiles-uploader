@@ -15,7 +15,7 @@
                 BorderBrush="{StaticResource BgElevatedBrush}"
                 BorderThickness="0,0,0,1"
                 Padding="20,12">
-            <TextBlock x:Uid="Settings_Title"
+            <TextBlock x:Name="SettingsTitle"
                        FontSize="16" FontWeight="SemiBold"
                        Foreground="{StaticResource TextPrimaryBrush}" />
         </Border>
@@ -24,7 +24,7 @@
             <StackPanel Spacing="12" MaxWidth="600" HorizontalAlignment="Left">
 
                 <!-- Account -->
-                <TextBlock x:Uid="Settings_AccountHeader"
+                <TextBlock x:Name="SettingsAccountHeader"
                            FontSize="11" FontFamily="Consolas"
                            Foreground="#424860" CharacterSpacing="100" Margin="0,8,0,0" />
 
@@ -58,7 +58,7 @@
                                        CharacterSpacing="50" />
                         </StackPanel>
 
-                        <Button x:Uid="Settings_LogoutButton"
+                        <Button x:Name="SettingsLogoutButton"
                                 Grid.Column="2"
                                 VerticalAlignment="Center"
                                 Click="Logout_Click" />
@@ -74,7 +74,7 @@
                         BorderBrush="#22263A" BorderThickness="1"
                         CornerRadius="7" Padding="16">
                     <StackPanel Spacing="12">
-                        <TextBlock x:Uid="Settings_LanguageAppLabel"
+                        <TextBlock x:Name="SettingsLanguageAppLabel"
                                    FontSize="13" Foreground="{StaticResource TextPrimaryBrush}" />
                         <ComboBox x:Name="LanguageCombo"
                                   HorizontalAlignment="Stretch"
@@ -83,14 +83,14 @@
                             <ComboBoxItem Tag="en-US" Content="EN  English" />
                             <ComboBoxItem Tag="fr-FR" Content="FR  Français" />
                         </ComboBox>
-                        <TextBlock x:Uid="Settings_LanguageHint"
+                        <TextBlock x:Name="SettingsLanguageHint"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="#424860" />
                     </StackPanel>
                 </Border>
 
                 <!-- Version & Update -->
-                <TextBlock x:Uid="Settings_VersionUpdateHeader"
+                <TextBlock x:Name="SettingsVersionUpdateHeader"
                            FontSize="11" FontFamily="Consolas"
                            Foreground="#424860" CharacterSpacing="100" Margin="0,8,0,0" />
 
@@ -107,7 +107,7 @@
                                            FontSize="11" FontFamily="Consolas"
                                            Foreground="#424860" />
                             </StackPanel>
-                            <Button x:Uid="Settings_CheckUpdateButton"
+                            <Button x:Name="SettingsCheckUpdateButton"
                                     HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     Click="CheckUpdate_Click" />
@@ -124,7 +124,6 @@
                                            Foreground="{StaticResource AccentGoldBrush}"
                                            VerticalAlignment="Center" />
                                 <Button x:Name="UpdateBtn"
-                                        x:Uid="Settings_DownloadButton"
                                         HorizontalAlignment="Right"
                                         Style="{StaticResource AccentButtonStyle}"
                                         Click="Update_Click" />
@@ -132,7 +131,6 @@
                         </Border>
 
                         <TextBlock x:Name="UpToDateText"
-                                   x:Uid="Settings_UpToDateText"
                                    FontSize="11" FontFamily="Consolas"
                                    Foreground="{StaticResource StatusGreenBrush}"
                                    Visibility="Collapsed" />
@@ -140,7 +138,7 @@
                 </Border>
 
                 <!-- Links -->
-                <TextBlock x:Uid="Settings_LinksHeader"
+                <TextBlock x:Name="SettingsLinksHeader"
                            FontSize="11" FontFamily="Consolas"
                            Foreground="#424860" CharacterSpacing="100" Margin="0,8,0,0" />
 
@@ -148,13 +146,13 @@
                         BorderBrush="#22263A" BorderThickness="1"
                         CornerRadius="7" Padding="16">
                     <StackPanel Spacing="8">
-                        <HyperlinkButton x:Uid="Settings_LinkOpenSite"
+                        <HyperlinkButton x:Name="SettingsLinkOpenSite"
                                          NavigateUri="https://wolffiles.eu"
                                          Foreground="{StaticResource TextSecondaryBrush}" />
-                        <HyperlinkButton x:Uid="Settings_LinkBugReport"
+                        <HyperlinkButton x:Name="SettingsLinkBugReport"
                                          NavigateUri="https://wolffiles.eu/contact"
                                          Foreground="{StaticResource TextSecondaryBrush}" />
-                        <HyperlinkButton x:Uid="Settings_LinkGitHub"
+                        <HyperlinkButton x:Name="SettingsLinkGitHub"
                                          NavigateUri="https://github.com/wolffileseu/wolffiles-uploader/releases"
                                          Foreground="{StaticResource TextSecondaryBrush}" />
                     </StackPanel>
